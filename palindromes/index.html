@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link href="./styles.css" rel="stylesheet" />
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <form name="palindromeForm" id="palindromeForm">
+      <label for="palindrome">Please enter a word to check</label>
+      <input
+        type="text"
+        id="palindrome"
+        name="palindrome"
+        placeholder="tacocat"
+        required
+      />
+      <label for="alg">
+        Please enter 1 or 2 to determine which algorithm to use
+      </label>
+      <input id="alg" type="number" min="1" max="2" name="alg" value="1" />
+      <input type="submit" value="Check Palindrome" />
+    </form>
+    <br />
+    <div class="list-container">
+      <div class="list">
+        <h2>List 1</h2>
+        <ul id="list1"></ul>
+        <button id="clear1">Clear List 1</button>
+      </div>
+      <div class="list">
+        <h2>List 2</h2>
+        <ul id="list2"></ul>
+        <button id="clear2">Clear List 2</button>
+      </div>
+    </div>
+  </body>
+</html>
