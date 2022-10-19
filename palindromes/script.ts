@@ -5,6 +5,7 @@ const clear1 = document.getElementById("clear1");
 const clear2 = document.getElementById("clear2");
 
 function checkPalindrome(e: SubmitEvent) {
+  //this happens on submit of the form
   if (!e.target) {
     return;
   }
@@ -28,35 +29,37 @@ function checkPalindrome(e: SubmitEvent) {
 }
 
 function palindrome1(str: string) {
+  //first alg. Go through the string and reverse it and then compare
   const testString = str.toLowerCase().replace(/ /g, "");
   let reversed = "";
   for (let i = testString.length - 1; i >= 0; i--) {
     reversed += testString[i];
   }
-  const isPalindrome = reversed === testString;
   const li = document.createElement("li");
-  if (!isPalindrome) {
-    li.append(str + " - Not Palindrome");
-  } else {
+  if (reversed === testString) {
     li.append(str + " - Palindrome");
+  } else {
+    li.append(str + " - Not Palindrome");
   }
   list1?.append(li);
 }
 
 function palindrome2(str: string) {
+  //second alg. Use string and array functions to reverse the string
   const testString = str.toLowerCase().replace(/ /g, "");
   let reversed = testString.split("").reverse().join("");
-  const isPalindrome = reversed === testString;
+
   const li = document.createElement("li");
-  if (!isPalindrome) {
-    li.append(str + " - Not Palindrome");
-  } else {
+  if (reversed === testString) {
     li.append(str + " - Palindrome");
+  } else {
+    li.append(str + " - Not Palindrome");
   }
   list2?.append(li);
 }
 
 function clearList(list: HTMLElement) {
+  //Handle clearing the list.
   list.innerHTML = "";
 }
 

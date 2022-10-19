@@ -4,6 +4,7 @@ var form = document.getElementById("palindromeForm");
 var clear1 = document.getElementById("clear1");
 var clear2 = document.getElementById("clear2");
 function checkPalindrome(e) {
+    //this happens on submit of the form
     if (!e.target) {
         return;
     }
@@ -28,35 +29,36 @@ function checkPalindrome(e) {
     e.target["palindrome"].focus();
 }
 function palindrome1(str) {
+    //first alg. Go through the string and reverse it and then compare
     var testString = str.toLowerCase().replace(/ /g, "");
     var reversed = "";
     for (var i = testString.length - 1; i >= 0; i--) {
         reversed += testString[i];
     }
-    var isPalindrome = reversed === testString;
     var li = document.createElement("li");
-    if (!isPalindrome) {
-        li.append(str + " - Not Palindrome");
+    if (reversed === testString) {
+        li.append(str + " - Palindrome");
     }
     else {
-        li.append(str + " - Palindrome");
+        li.append(str + " - Not Palindrome");
     }
     list1 === null || list1 === void 0 ? void 0 : list1.append(li);
 }
 function palindrome2(str) {
+    //second alg. Use string and array functions to reverse the string
     var testString = str.toLowerCase().replace(/ /g, "");
     var reversed = testString.split("").reverse().join("");
-    var isPalindrome = reversed === testString;
     var li = document.createElement("li");
-    if (!isPalindrome) {
-        li.append(str + " - Not Palindrome");
+    if (reversed === testString) {
+        li.append(str + " - Palindrome");
     }
     else {
-        li.append(str + " - Palindrome");
+        li.append(str + " - Not Palindrome");
     }
     list2 === null || list2 === void 0 ? void 0 : list2.append(li);
 }
 function clearList(list) {
+    //Handle clearing the list.
     list.innerHTML = "";
 }
 form === null || form === void 0 ? void 0 : form.addEventListener("submit", checkPalindrome);
