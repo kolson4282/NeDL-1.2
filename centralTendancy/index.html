@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link href="./styles.css" rel="stylesheet" />
+    <script src="out/script.js" defer></script>
+  </head>
+  <body>
+    <div class="wrapper">
+      <form name="numberForm" id="numberForm">
+        <label for="int">Please enter a number to add to the list: </label>
+        <input type="number" id="int" name="int" required />
+        <input type="submit" value="Add to List" />
+      </form>
+      <div class="data">
+        <h3>Mean: <span id="mean">0</span></h3>
+
+        <h3>Median: <span id="median">0</span></h3>
+
+        <h3>Mode: <span id="mode">0</span></h3>
+      </div>
+      <br />
+      <div class="list-container">
+        <h2>Numbers:</h2>
+        <button id="clear1">Clear Numbers</button>
+        <ul id="list"></ul>
+      </div>
+    </div>
+  </body>
+</html>
