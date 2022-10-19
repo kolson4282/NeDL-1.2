@@ -4,6 +4,9 @@ var form = document.getElementById("palindromeForm");
 var clear1 = document.getElementById("clear1");
 var clear2 = document.getElementById("clear2");
 function checkPalindrome(e) {
+    if (!e.target) {
+        return;
+    }
     e.preventDefault();
     var test = e.target["palindrome"].value;
     if (test === "") {
@@ -28,7 +31,7 @@ function checkPalindrome(e) {
     e.target["palindrome"].focus();
 }
 function palindrome1(str) {
-    var testString = str.toLowerCase().replaceAll(" ", "");
+    var testString = str.toLowerCase().replace(/ /g, "");
     var reversed = "";
     for (var i = testString.length - 1; i >= 0; i--) {
         reversed += testString[i];
@@ -44,7 +47,7 @@ function palindrome1(str) {
     return true;
 }
 function palindrome2(str) {
-    var testString = str.toLowerCase().replaceAll(" ", "");
+    var testString = str.toLowerCase().replace(/ /g, "");
     var reversed = testString.split("").reverse().join("");
     var isPalindrome = reversed === testString;
     if (!isPalindrome) {
