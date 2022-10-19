@@ -15,19 +15,16 @@ function checkPalindrome(e) {
     }
     var alg = e.target["alg"].value;
     if (alg === "1") {
-        if (palindrome1(test)) {
-            e.target["palindrome"].value = "";
-        }
+        palindrome1(test);
     }
     else if (alg === "2") {
-        if (palindrome2(test)) {
-            e.target["palindrome"].value = "";
-        }
+        palindrome2(test);
     }
     else {
         alert("Invalid Algorithm to use. Must use 1 or 2");
         e.target["alg"].value = "1";
     }
+    e.target["palindrome"].value = "";
     e.target["palindrome"].focus();
 }
 function palindrome1(str) {
@@ -37,27 +34,27 @@ function palindrome1(str) {
         reversed += testString[i];
     }
     var isPalindrome = reversed === testString;
-    if (!isPalindrome) {
-        alert("That is not a palindrome");
-        return false;
-    }
     var li = document.createElement("li");
-    li.append(str);
+    if (!isPalindrome) {
+        li.append(str + " - Not Palindrome");
+    }
+    else {
+        li.append(str + " - Palindrome");
+    }
     list1 === null || list1 === void 0 ? void 0 : list1.append(li);
-    return true;
 }
 function palindrome2(str) {
     var testString = str.toLowerCase().replace(/ /g, "");
     var reversed = testString.split("").reverse().join("");
     var isPalindrome = reversed === testString;
-    if (!isPalindrome) {
-        alert("That is not a palindrome");
-        return false;
-    }
     var li = document.createElement("li");
-    li.append(str);
+    if (!isPalindrome) {
+        li.append(str + " - Not Palindrome");
+    }
+    else {
+        li.append(str + " - Palindrome");
+    }
     list2 === null || list2 === void 0 ? void 0 : list2.append(li);
-    return true;
 }
 function clearList(list) {
     list.innerHTML = "";
