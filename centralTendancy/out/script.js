@@ -1,35 +1,36 @@
 "use strict";
 const list = document.getElementById("list");
 const form = document.getElementById("numberForm");
+const number = document.getElementById("int");
 const mean = document.getElementById("mean");
 const median = document.getElementById("median");
 const mode = document.getElementById("mode");
 const clearButton = document.getElementById("clear");
 let numbers = [];
 function addNumber(e) {
+    console.log(e);
     if (!e.target) {
         return;
     }
     e.preventDefault();
     const li = document.createElement("li");
-    const value = e.target["int"].value;
-    if (isNaN(value)) {
+    const value = number.value;
+    if (isNaN(parseInt(value))) {
         alert("That is not a number");
-        e.target["int"].value = "";
+        number.value = "";
         return;
     }
-    numbers.push(+value);
+    numbers.push(parseInt(value));
     numbers.sort((a, b) => a - b);
     li.append(value);
     list.append(li);
     updateData();
-    e.target["int"].value = "";
-    console.log(numbers);
+    number.value = "";
 }
 function updateData() {
     mean.innerHTML = getMean().toFixed(2);
     median.innerHTML = getMedian().toString();
-    mode.innerHTML = getMode().toString();
+    mode.innerHTML = getMode();
 }
 function getMean() {
     const ave = numbers.reduce((acc, n) => acc + n, 0) / numbers.length;
@@ -48,20 +49,26 @@ function getMedian() {
     }
 }
 function getMode() {
-    let maxCount = 0;
-    let mode = numbers[0] || 0;
-    numbers.reduce((c, n) => {
+    const count = numbers.reduce((c, n) => {
         if (!(n in c)) {
             c[n] = 0;
         }
         c[n]++;
-        if (c[n] > maxCount) {
-            maxCount = c[n];
-            mode = n;
-        }
         return c;
     }, {});
-    return mode;
+    let maxCount = 0;
+    let mode = [];
+    for (let n in count) {
+        if (count[n] == maxCount) {
+            mode.push(n);
+        }
+        else if (count[n] >= maxCount) {
+            mode = [n];
+            maxCount = count[n];
+        }
+    }
+    console.log(count);
+    return mode.join(", ");
 }
 function clear() {
     numbers = [];
