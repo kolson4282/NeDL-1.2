@@ -1,0 +1,59 @@
+* {
+  box-sizing: border-box;
+}
+body {
+  padding-top: 50px;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: auto;
+  width: 30vw;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  width: 100%;
+}
+form label {
+  align-self: center;
+}
+
+.todo-container {
+  width: 30vw;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#todoList {
+  max-width: 30vw;
+  list-style-type: none;
+  padding: 0;
+  display: grid;
+  align-items: stretch;
+  justify-content: center;
+}
+
+.list-item {
+  max-width: inherit;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 1em;
+  border: 1px solid black;
+}
+
+.list-item.checked label {
+  text-decoration: line-through;
+}
+
+input[type="checkbox"] {
+  margin-left: 0;
+}

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Todo List</title>
+    <link href="./styles.css" rel="stylesheet" />
+    <script src="dist/script.js" defer></script>
+  </head>
+  <body>
+    <div class="wrapper">
+      <form id="todoForm">
+        <label for="todoInput">Enter TODO to add to the list</label>
+        <input type="text" id="todoInput" name="todoInput" required />
+        <input type="submit" value="Add Todo" />
+      </form>
+
+      <div class="todo-container">
+        <h2>TODOS</h2>
+        <button id="delete">Delete All</button>
+        <ul id="todoList">
+          <!-- <li class="list-item">
+            <input type="checkbox" class="todoCheckbox" />
+            <label
+              >This is some very long textThis is some very long textThis is
+              some very long textThis is some very long textThis is some very
+              long textThis is some very long textThis is some very long
+              textThis is some very long textThis is some very long text</label
+            >
+            <button>X</button>
+          </li> -->
+        </ul>
+      </div>
+    </div>
+  </body>
+</html>
