@@ -25,10 +25,26 @@ function addNumber(e: SubmitEvent) {
 }
 
 function updateData() {
-  const ave = numbers.reduce((acc, n) => acc + n, 0) / numbers.length;
-  mean.innerHTML = ave.toString();
+  mean.innerHTML = getMean().toString();
 
-  median.innerHTML = numbers[Math.floor(numbers.length / 2)].toString();
+  median.innerHTML = getMedian().toString();
 }
+
+function getMean() {
+  const ave = numbers.reduce((acc, n) => acc + n, 0) / numbers.length;
+  return ave;
+}
+
+function getMedian() {
+  const middle = Math.floor(numbers.length / 2);
+
+  if (numbers.length % 2 == 1) {
+    return numbers[middle];
+  } else {
+    return (numbers[middle - 1] + numbers[middle]) / 2;
+  }
+}
+
+function getMode() {}
 
 form.addEventListener("submit", addNumber);

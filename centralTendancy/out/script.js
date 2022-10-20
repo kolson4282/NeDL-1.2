@@ -23,8 +23,21 @@ function addNumber(e) {
     updateData();
 }
 function updateData() {
-    var ave = numbers.reduce(function (acc, n) { return acc + n; }, 0) / numbers.length;
-    mean.innerHTML = ave.toString();
-    median.innerHTML = numbers[Math.floor(numbers.length / 2)].toString();
+    mean.innerHTML = getMean().toString();
+    median.innerHTML = getMedian().toString();
 }
+function getMean() {
+    var ave = numbers.reduce(function (acc, n) { return acc + n; }, 0) / numbers.length;
+    return ave;
+}
+function getMedian() {
+    var middle = Math.floor(numbers.length / 2);
+    if (numbers.length % 2 == 1) {
+        return numbers[middle];
+    }
+    else {
+        return (numbers[middle - 1] + numbers[middle]) / 2;
+    }
+}
+function getMode() { }
 form.addEventListener("submit", addNumber);
