@@ -3,7 +3,9 @@ const form = document.getElementById("numberForm");
 const mean = document.getElementById("mean");
 const median = document.getElementById("median");
 const mode = document.getElementById("mode");
-const numbers: number[] = [];
+const clearButton = document.getElementById("clear");
+
+let numbers: number[] = [];
 
 function addNumber(e: SubmitEvent) {
   if (!e.target) {
@@ -17,34 +19,61 @@ function addNumber(e: SubmitEvent) {
     return;
   }
   numbers.push(+value);
-  numbers.sort();
+  numbers.sort((a, b) => a - b);
   li.append(value);
   list.append(li);
-  console.log(numbers);
   updateData();
+  e.target["int"].value = "";
+  console.log(numbers);
 }
 
 function updateData() {
-  mean.innerHTML = getMean().toString();
+  mean.innerHTML = getMean().toFixed(2);
 
   median.innerHTML = getMedian().toString();
+
+  mode.innerHTML = getMode().toString();
 }
 
-function getMean() {
+function getMean(): number {
   const ave = numbers.reduce((acc, n) => acc + n, 0) / numbers.length;
-  return ave;
+  return ave || 0;
 }
 
-function getMedian() {
+function getMedian(): number {
   const middle = Math.floor(numbers.length / 2);
-
-  if (numbers.length % 2 == 1) {
+  if (numbers.length === 0) {
+    return 0;
+  } else if (numbers.length % 2 === 1) {
     return numbers[middle];
   } else {
     return (numbers[middle - 1] + numbers[middle]) / 2;
   }
 }
 
-function getMode() {}
+function getMode(): number {
+  let maxCount = 0;
+  let mode = numbers[0] || 0;
+  const count = numbers.reduce((c, n) => {
+    if (!(n in c)) {
+      c[n] = 0;
+    }
+    c[n]++;
+    if (c[n] > maxCount) {
+      maxCount = c[n];
+      mode = n;
+    }
+    return c;
+  }, {});
+
+  return mode;
+}
+
+function clear() {
+  numbers = [];
+  list.innerHTML = "";
+  updateData();
+}
 
 form.addEventListener("submit", addNumber);
+clearButton.addEventListener("click", clear);
