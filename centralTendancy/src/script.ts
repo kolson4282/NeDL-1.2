@@ -1,15 +1,14 @@
-const list = document.getElementById("list") as HTMLElement;
-const form = document.getElementById("numberForm") as HTMLElement;
-const number = document.getElementById("int") as HTMLInputElement; //Getting the value of the number input so that we don't have any anys in the form.
-const mean = document.getElementById("mean") as HTMLElement;
-const median = document.getElementById("median") as HTMLElement;
-const mode = document.getElementById("mode") as HTMLElement;
-const clearButton = document.getElementById("clear") as HTMLElement;
+const form = document.getElementById("numberForm") as HTMLElement; //Form to get the values from
+const number = document.getElementById("int") as HTMLInputElement; //the number input field in the form
+const list = document.getElementById("list") as HTMLElement; //The list to put the values in
+const mean = document.getElementById("mean") as HTMLElement; //span that I'm putting the mean in
+const median = document.getElementById("median") as HTMLElement; //span that I'm putting the median in
+const mode = document.getElementById("mode") as HTMLElement; //span that I'm putting the mode in
+const clearButton = document.getElementById("clear") as HTMLElement; //button to clear the list
 
 let numbers: number[] = [];
 
 function addNumber(e: SubmitEvent) {
-  console.log(e);
   if (!e.target) {
     return; //if e doesn't have a target, none of this makes sense, so shouldn't go through the process. This should never actually happen.
   }
@@ -34,9 +33,15 @@ function addNumber(e: SubmitEvent) {
 }
 
 function updateData() {
-  mean.innerHTML = getMean().toFixed(2);
-  median.innerHTML = getMedian().toString();
-  mode.innerHTML = getMode();
+  if (numbers.length === 0) {
+    mean.innerHTML = "N/A";
+    median.innerHTML = "N/A";
+    mode.innerHTML = "N/A";
+  } else {
+    mean.innerHTML = getMean().toFixed(2);
+    median.innerHTML = getMedian().toString();
+    mode.innerHTML = getMode();
+  }
 }
 
 function getMean(): number {
@@ -65,19 +70,18 @@ function getMode(): string {
   }, {}); //Set this way so typescript knows that C is an object that maps numbers to numbers
 
   let maxCount = 0;
-  let mode: string[] = [];
+  let modes: string[] = [];
   for (let n in count) {
     if (count[n] == maxCount) {
       //if the count is the same as what is already in the mode, push to the array. Allows multiple modes
-      mode.push(n);
+      modes.push(n);
     } else if (count[n] >= maxCount) {
       //if the count is greater than what is already the mode, overwrite the array.
-      mode = [n];
+      modes = [n];
       maxCount = count[n];
     }
   }
-  console.log(count);
-  return mode.join(", ");
+  return modes.join(", ");
 }
 
 function clear() {

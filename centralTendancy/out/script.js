@@ -1,14 +1,13 @@
 "use strict";
-const list = document.getElementById("list");
 const form = document.getElementById("numberForm");
 const number = document.getElementById("int");
+const list = document.getElementById("list");
 const mean = document.getElementById("mean");
 const median = document.getElementById("median");
 const mode = document.getElementById("mode");
 const clearButton = document.getElementById("clear");
 let numbers = [];
 function addNumber(e) {
-    console.log(e);
     if (!e.target) {
         return;
     }
@@ -28,9 +27,16 @@ function addNumber(e) {
     number.value = "";
 }
 function updateData() {
-    mean.innerHTML = getMean().toFixed(2);
-    median.innerHTML = getMedian().toString();
-    mode.innerHTML = getMode();
+    if (numbers.length === 0) {
+        mean.innerHTML = "N/A";
+        median.innerHTML = "N/A";
+        mode.innerHTML = "N/A";
+    }
+    else {
+        mean.innerHTML = getMean().toFixed(2);
+        median.innerHTML = getMedian().toString();
+        mode.innerHTML = getMode();
+    }
 }
 function getMean() {
     const ave = numbers.reduce((acc, n) => acc + n, 0) / numbers.length;
@@ -57,18 +63,17 @@ function getMode() {
         return c;
     }, {});
     let maxCount = 0;
-    let mode = [];
+    let modes = [];
     for (let n in count) {
         if (count[n] == maxCount) {
-            mode.push(n);
+            modes.push(n);
         }
         else if (count[n] >= maxCount) {
-            mode = [n];
+            modes = [n];
             maxCount = count[n];
         }
     }
-    console.log(count);
-    return mode.join(", ");
+    return modes.join(", ");
 }
 function clear() {
     numbers = [];
