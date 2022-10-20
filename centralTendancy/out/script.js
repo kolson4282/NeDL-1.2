@@ -1,25 +1,25 @@
-var list = document.getElementById("list");
-var form = document.getElementById("numberForm");
-var mean = document.getElementById("mean");
-var median = document.getElementById("median");
-var mode = document.getElementById("mode");
-var clearButton = document.getElementById("clear");
-var numbers = [];
+"use strict";
+const list = document.getElementById("list");
+const form = document.getElementById("numberForm");
+const mean = document.getElementById("mean");
+const median = document.getElementById("median");
+const mode = document.getElementById("mode");
+const clearButton = document.getElementById("clear");
+let numbers = [];
 function addNumber(e) {
     if (!e.target) {
-        return; //if e doesn't have a target, none of this makes sense, so shouldn't go through the process. This should never actually happen.
+        return;
     }
-    e.preventDefault(); //Keep submit from refreshing the page
-    var li = document.createElement("li");
-    var value = e.target["int"].value;
+    e.preventDefault();
+    const li = document.createElement("li");
+    const value = e.target["int"].value;
     if (isNaN(value)) {
-        //This should never happen since I'm using a number input, but still protecting for it.
         alert("That is not a number");
         e.target["int"].value = "";
         return;
     }
     numbers.push(+value);
-    numbers.sort(function (a, b) { return a - b; }); //This seems bad. Is there a way to input a number in it's sorted place?
+    numbers.sort((a, b) => a - b);
     li.append(value);
     list.append(li);
     updateData();
@@ -32,11 +32,11 @@ function updateData() {
     mode.innerHTML = getMode().toString();
 }
 function getMean() {
-    var ave = numbers.reduce(function (acc, n) { return acc + n; }, 0) / numbers.length;
+    const ave = numbers.reduce((acc, n) => acc + n, 0) / numbers.length;
     return ave || 0;
 }
 function getMedian() {
-    var middle = Math.floor(numbers.length / 2);
+    const middle = Math.floor(numbers.length / 2);
     if (numbers.length === 0) {
         return 0;
     }
@@ -48,16 +48,14 @@ function getMedian() {
     }
 }
 function getMode() {
-    var maxCount = 0;
-    var mode = numbers[0] || 0;
-    numbers.reduce(function (c, n) {
+    let maxCount = 0;
+    let mode = numbers[0] || 0;
+    numbers.reduce((c, n) => {
         if (!(n in c)) {
-            c[n] = 0; //If n isn't already in c, set it to zero
+            c[n] = 0;
         }
         c[n]++;
         if (c[n] > maxCount) {
-            //Check if the number of "n" is greater than the max. If it is, it is the new mode.
-            //Note: it's possible to have more than one mode, this will only return one of them.
             maxCount = c[n];
             mode = n;
         }
@@ -72,3 +70,4 @@ function clear() {
 }
 form.addEventListener("submit", addNumber);
 clearButton.addEventListener("click", clear);
+//# sourceMappingURL=script.js.map

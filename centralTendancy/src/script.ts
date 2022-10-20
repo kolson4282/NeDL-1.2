@@ -1,9 +1,9 @@
-const list = document.getElementById("list");
-const form = document.getElementById("numberForm");
-const mean = document.getElementById("mean");
-const median = document.getElementById("median");
-const mode = document.getElementById("mode");
-const clearButton = document.getElementById("clear");
+const list = document.getElementById("list") as HTMLElement;
+const form = document.getElementById("numberForm") as HTMLElement;
+const mean = document.getElementById("mean") as HTMLElement;
+const median = document.getElementById("median") as HTMLElement;
+const mode = document.getElementById("mode") as HTMLElement;
+const clearButton = document.getElementById("clear") as HTMLElement;
 
 let numbers: number[] = [];
 
