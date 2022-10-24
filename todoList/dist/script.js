@@ -21,7 +21,7 @@ const saveTodos = () => {
 const submit = (e) => {
     e.preventDefault(); //prevent submit from refreshing the page
     const IDstring = `${nextID}`;
-    const todo = { todo: todoInput.value, id: IDstring };
+    const todo = { todo: todoInput.value, id: IDstring, completed: false };
     list.append(createTodo(todo));
     todoInput.value = "";
     todoInput.focus();
@@ -39,7 +39,7 @@ const createTodo = (todo) => {
     checkbox.classList.add("todoCheckbox");
     checkbox.type = "checkbox";
     checkbox.id = "checkbox" + todo.id;
-    checkbox.checked = todo.completed || false;
+    checkbox.checked = todo.completed;
     checkbox.addEventListener("change", () => checkTodo(todo.id));
     li.append(checkbox);
     const label = document.createElement("label");
@@ -50,6 +50,7 @@ const createTodo = (todo) => {
     li.append(label);
     const del = document.createElement("button"); //create the delete button and add event listener.
     del.innerText = "X";
+    del.classList.add("remove");
     li.append(del);
     del.addEventListener("click", () => deleteTodo(todo.id));
     // todos.push(todo); //add the todo to the internal array.
