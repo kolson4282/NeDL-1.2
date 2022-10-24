@@ -6,7 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Random Quote Generator</title>
     <link rel="stylesheet" href="style.css" />
-    <script src="/dist/script.js"></script>
+    <script src="/dist/script.js" defer></script>
   </head>
-  <body></body>
+  <body>
+    <form id="userInput">
+      <label for="minLength">Min Length</label>
+      <input value="0" id="minLength" type="number" />
+      <label for="maxLength">Max Length</label>
+      <input value="0" id="maxLength" type="number" />
+      <input type="submit" value="Get Quote" />
+    </form>
+
+    <div id="quote">
+      <div id="content"></div>
+      <div id="author"></div>
+    </div>
+  </body>
 </html>
