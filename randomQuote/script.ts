@@ -5,6 +5,9 @@ const form = document.getElementById("userInput") as HTMLFormElement;
 const minLengthInput = document.getElementById("minLength") as HTMLInputElement;
 const maxLengthInput = document.getElementById("maxLength") as HTMLInputElement;
 
+const show = document.getElementById("show") as HTMLButtonElement;
+const json = document.getElementById("json") as HTMLDivElement;
+
 type ReturnObject = {
   _id: string;
   // The quotation text
@@ -23,9 +26,10 @@ const displayQuote = async (min: string, max: string) => {
   const result = await fetch(
     `https://api.quotable.io/random?minLength=${min}&maxLength=${max}`
   );
-  const { content, author }: ReturnObject = await result.json();
-  contentDiv.innerText = content;
-  authorDiv.innerText = author;
+  const data: ReturnObject = await result.json();
+  contentDiv.innerText = data.content;
+  authorDiv.innerText = data.author;
+  json.innerText = JSON.stringify(data);
 };
 
 const onSubmit = (e: SubmitEvent) => {
@@ -35,3 +39,7 @@ const onSubmit = (e: SubmitEvent) => {
 };
 
 form.addEventListener("submit", onSubmit);
+show.addEventListener("click", () => {
+  json.classList.toggle("hidden");
+  show.innerText = show.innerText === "Show JSON" ? "Hide JSON" : "Show JSON";
+});

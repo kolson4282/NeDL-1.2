@@ -38,3 +38,7 @@ form input[type="submit"]:hover {
   content: "- ";
   font-size: 1.5em;
 }
+
+.hidden {
+  display: none;
+}

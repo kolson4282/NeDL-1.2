@@ -13,11 +13,14 @@ const authorDiv = document.getElementById("author");
 const form = document.getElementById("userInput");
 const minLengthInput = document.getElementById("minLength");
 const maxLengthInput = document.getElementById("maxLength");
+const show = document.getElementById("show");
+const json = document.getElementById("json");
 const displayQuote = (min, max) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield fetch(`https://api.quotable.io/random?minLength=${min}&maxLength=${max}`);
-    const { content, author } = yield result.json();
-    contentDiv.innerText = content;
-    authorDiv.innerText = author;
+    const data = yield result.json();
+    contentDiv.innerText = data.content;
+    authorDiv.innerText = data.author;
+    json.innerText = JSON.stringify(data);
 });
 const onSubmit = (e) => {
     e.preventDefault();
@@ -25,4 +28,8 @@ const onSubmit = (e) => {
     minLengthInput.focus();
 };
 form.addEventListener("submit", onSubmit);
+show.addEventListener("click", () => {
+    json.classList.toggle("hidden");
+    show.innerText = show.innerText === "Show JSON" ? "Hide JSON" : "Show JSON";
+});
 //# sourceMappingURL=script.js.map
