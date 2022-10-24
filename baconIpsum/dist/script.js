@@ -10,17 +10,20 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 const list = document.getElementById("ipsumList");
 const jsonContainer = document.getElementById("json");
-const start = () => __awaiter(void 0, void 0, void 0, function* () {
-    const ipsum = (yield getIpsum());
+const paragraphs = document.getElementById("paragraphs");
+const typeSelect = document.getElementById("typeSelect");
+const fillData = () => __awaiter(void 0, void 0, void 0, function* () {
+    list.innerHTML = "";
+    jsonContainer.innerHTML = "";
+    const ipsum = (yield getIpsum(paragraphs.value, typeSelect.value));
     ipsum.forEach((line) => {
-        const li = document.createElement("p");
-        li.innerText = line;
-        list === null || list === void 0 ? void 0 : list.append(li);
+        const p = document.createElement("p");
+        p.innerText = line;
+        list.append(p);
     });
-    jsonContainer === null || jsonContainer === void 0 ? void 0 : jsonContainer.append(JSON.stringify(ipsum));
+    jsonContainer.append(JSON.stringify(ipsum));
 });
-const getIpsum = () => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield fetch("https://baconipsum.com/api/?type=meat-and-filler&paras=3&start-with-lorem=1");
+const getIpsum = (paras = "5", type = "meat-and-filler") => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield fetch(`https://baconipsum.com/api/?type=${type}&paras=${paras}`);
     return result.json();
 });
-start();
