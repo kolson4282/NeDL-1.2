@@ -31,8 +31,6 @@ const displayQuote = async (min: string, max: string) => {
 const onSubmit = (e: SubmitEvent) => {
   e.preventDefault();
   displayQuote(minLengthInput.value, maxLengthInput.value);
-  minLengthInput.value = "0";
-  maxLengthInput.value = "0";
   minLengthInput.focus();
 };
 

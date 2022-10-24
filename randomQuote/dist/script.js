@@ -22,8 +22,6 @@ const displayQuote = (min, max) => __awaiter(void 0, void 0, void 0, function* (
 const onSubmit = (e) => {
     e.preventDefault();
     displayQuote(minLengthInput.value, maxLengthInput.value);
-    minLengthInput.value = "0";
-    maxLengthInput.value = "0";
     minLengthInput.focus();
 };
 form.addEventListener("submit", onSubmit);
