@@ -30,6 +30,7 @@ const getRepoInfo = async (repoURL: string, repoName: string) => {
     name: string;
     type: string;
     download_url: string;
+    path: string;
   }[] = await results.json();
   const div = document.createElement("div");
   repoInfo.innerHTML += `<h2>${repoName}</h2>`;
@@ -38,8 +39,8 @@ const getRepoInfo = async (repoURL: string, repoName: string) => {
     const button = document.createElement("button");
     button.innerText = file.name;
     button.onclick = () => {
-      getFileInfo(file, div, repoInfo);
       div.innerText = "";
+      getFileInfo(file, div, repoInfo);
     };
     repoInfo.append(button);
   });
@@ -51,15 +52,17 @@ const getFileInfo = async (
     name: string;
     type: string;
     download_url: string;
+    path: string;
   },
   div: HTMLElement,
   parentDiv: HTMLElement
 ) => {
   //display the info for a selected file or folder.
+  div.innerHTML += `<h2>${file.name}</h2>`;
   parentDiv.append(div); //this makes it easier to delete stuff later...
   const nextDiv = document.createElement("div");
+  console.log(file);
 
-  div.innerHTML += `<h2>${file.name}</h2>`;
   if (file.type == "file") {
     //if a file, display the text contents of the file, along with a title showing which file it is.
     const results = await fetch(file.download_url);

@@ -36,16 +36,17 @@ const getRepoInfo = (repoURL, repoName) => __awaiter(void 0, void 0, void 0, fun
         const button = document.createElement("button");
         button.innerText = file.name;
         button.onclick = () => {
-            getFileInfo(file, div, repoInfo);
             div.innerText = "";
+            getFileInfo(file, div, repoInfo);
         };
         repoInfo.append(button);
     });
 });
 const getFileInfo = (file, div, parentDiv) => __awaiter(void 0, void 0, void 0, function* () {
+    div.innerHTML += `<h2>${file.name}</h2>`;
     parentDiv.append(div);
     const nextDiv = document.createElement("div");
-    div.innerHTML += `<h2>${file.name}</h2>`;
+    console.log(file);
     if (file.type == "file") {
         const results = yield fetch(file.download_url);
         const contents = yield results.text();
