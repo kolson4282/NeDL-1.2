@@ -34,10 +34,10 @@ form input[type="submit"]:hover {
 #author {
   font-size: 1.5em;
 }
-#author::before {
+/* #author::before {
   content: "- ";
   font-size: 1.5em;
-}
+} */
 
 .hidden {
   display: none;
