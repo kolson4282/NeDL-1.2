@@ -51,14 +51,14 @@ const displayQuote = async (min: string, max: string, tags = "") => {
 
 const onSubmit = (e: SubmitEvent) => {
   e.preventDefault();
-  const options = Array.from(tagSelect.options);
-  const selected: string[] = [];
-  options.forEach((option) => {
-    if (option.selected) {
-      selected.push(option.value);
-    }
-  });
-  displayQuote(minLengthInput.value, maxLengthInput.value, selected.join(","));
+  // const options = Array.from(tagSelect.options);
+  // const selected: string[] = [];
+  // options.forEach((option) => {
+  //   if (option.selected) {
+  //     selected.push(option.value);
+  //   }
+  // });
+  displayQuote(minLengthInput.value, maxLengthInput.value, tagSelect.value);
   minLengthInput.focus();
 };
 
