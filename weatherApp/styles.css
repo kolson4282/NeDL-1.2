@@ -1,0 +1,9 @@
+#weekly,
+#hourly {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+}
+#weekly {
+  grid-auto-flow: column;
+}

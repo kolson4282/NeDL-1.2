@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bacon Ipsum</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css"
+    integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap-theme.min.css"
+    integrity="sha384-6pzBo3FDv/PJ8r2KRkGHifhEocL+1X2rVCTTkUfGk7/0pbek5mMa1upzvWbrUbOZ" crossorigin="anonymous">
+  <link rel="stylesheet" href="style.css" />
+  <script src="dist/script.js" defer></script>
+</head>
+
+<body>
+  <div class="container">
+    <div class="form-group">
+      <label for="paragraphs">Number of Paragraphs</label>
+      <input type="number" class="form-control" id="paragraphs" min="1" max="10" value="1">
+    </div>
+    <div class="form-group">
+      <select id="typeSelect" class="form-control">
+        <option value="meat-and-filler">Meat and Filler</option>
+        <option value="all-meat">All Meat</option>
+      </select>
+    </div>
+    <button onclick="fillData()" class="btn btn-default">Submit</button>
+
+    <h2>Paragraphs:</h2>
+    <div class="row">
+      <div class="col-md-12" id="ipsumList"></div>
+    </div>
+
+    <h2>Raw JSON:</h2>
+    <div class="row">
+      <div class="col-md-12" id="json"></div>
+    </div>
+  </div>
+</body>
+
+</html>

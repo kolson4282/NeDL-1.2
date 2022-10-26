@@ -1,0 +1,44 @@
+form {
+  display: flex;
+  width: 30vw;
+  flex-direction: column;
+  margin: auto;
+  gap: 10px;
+}
+form label {
+  font-size: 1.25em;
+  align-self: center;
+}
+form input {
+  font-size: 1.25em;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  border-radius: 10px;
+}
+form input[type="submit"] {
+  background-color: rgba(100, 130, 249, 0.2);
+}
+form input[type="submit"]:hover {
+  background-color: rgba(100, 130, 249, 0.4);
+}
+
+#quote {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+#content {
+  font-size: 2em;
+}
+#author {
+  font-size: 1.5em;
+}
+/* #author::before {
+  content: "- ";
+  font-size: 1.5em;
+} */
+
+.hidden {
+  display: none;
+}
