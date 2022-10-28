@@ -8,7 +8,7 @@
   </head>
   <body>
     <div class="container">
-      <nav class="navbar navbar-expand-lg">
+      <nav class="navbar navbar-expand-lg sticky-top bg-light">
         <div class="container-fluid">
           <a class="navbar-brand" href="#">Pokedex</a>
           <button
@@ -25,10 +25,16 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Home</a>
+                <a class="nav-link" aria-current="page"> Home </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Random</a>
+                <a class="nav-link">Random</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link">Previous</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link">Next</a>
               </li>
             </ul>
             <form class="d-flex" role="search">
@@ -45,7 +51,7 @@
           </div>
         </div>
       </nav>
-      <div class="row gx-5 gy-5 text-center">
+      <div class="pt-5 row gx-5 gy-5 text-center">
         <div class="col-xs-6 col-md-4 col-lg-3 col-xxl-2">
           <div class="card">
             <img

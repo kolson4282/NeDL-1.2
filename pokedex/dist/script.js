@@ -9,9 +9,38 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 const mainContent = document.getElementById("mainContent");
-const load = () => __awaiter(void 0, void 0, void 0, function* () {
-    const pokemonListResult = yield fetch("https://pokeapi.co/api/v2/pokemon-species");
+const nextLink = document.getElementById("next");
+const prevLink = document.getElementById("previous");
+const homeLink = document.getElementById("home");
+const brandLink = document.getElementById("brand");
+let nextListener;
+let prevListener;
+const load = (url = "https://pokeapi.co/api/v2/pokemon-species") => __awaiter(void 0, void 0, void 0, function* () {
+    mainContent.innerHTML = "";
+    const pokemonListResult = yield fetch(url);
     const pokemonList = yield pokemonListResult.json();
+    if (pokemonList.next) {
+        nextLink === null || nextLink === void 0 ? void 0 : nextLink.classList.remove("d-none");
+        nextLink === null || nextLink === void 0 ? void 0 : nextLink.removeEventListener("click", nextListener);
+        nextListener = () => load(pokemonList.next);
+        nextLink === null || nextLink === void 0 ? void 0 : nextLink.addEventListener("click", nextListener);
+    }
+    else {
+        nextLink === null || nextLink === void 0 ? void 0 : nextLink.classList.add("d-none");
+        nextLink === null || nextLink === void 0 ? void 0 : nextLink.removeEventListener("click", nextListener);
+        nextListener = () => { };
+    }
+    if (pokemonList.previous) {
+        prevLink === null || prevLink === void 0 ? void 0 : prevLink.classList.remove("d-none");
+        prevLink === null || prevLink === void 0 ? void 0 : prevLink.removeEventListener("click", prevListener);
+        prevListener = () => load(pokemonList.previous);
+        prevLink === null || prevLink === void 0 ? void 0 : prevLink.addEventListener("click", prevListener);
+    }
+    else {
+        prevLink === null || prevLink === void 0 ? void 0 : prevLink.classList.add("d-none");
+        prevLink === null || prevLink === void 0 ? void 0 : prevLink.removeEventListener("click", prevListener);
+        prevListener = () => { };
+    }
     yield getCompositePokemon(pokemonList).then((list) => list.forEach((p) => (mainContent.innerHTML += pokemonCard(p))));
     // compPokemonList.forEach((p) => (mainContent.innerHTML += pokemonCard(p)));
     // console.log(compPokemonList);
@@ -55,4 +84,6 @@ const pokemonCard = ({ pokemon, pokemonSpecies }) => {
   </div>
   `;
 };
+homeLink === null || homeLink === void 0 ? void 0 : homeLink.addEventListener("click", () => load());
+brandLink === null || brandLink === void 0 ? void 0 : brandLink.addEventListener("click", () => load());
 load();

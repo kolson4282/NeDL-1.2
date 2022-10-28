@@ -1,4 +1,11 @@
 const mainContent = document.getElementById("mainContent") as HTMLElement;
+const nextLink = document.getElementById("next");
+const prevLink = document.getElementById("previous");
+const homeLink = document.getElementById("home");
+const brandLink = document.getElementById("brand");
+
+let nextListener: () => void;
+let prevListener: () => void;
 
 type PokemonSpeciesList = {
   count: number;
@@ -51,11 +58,32 @@ type CompositePokemon = {
   pokemonSpecies: PokemonSpecies;
 };
 
-const load = async () => {
-  const pokemonListResult = await fetch(
-    "https://pokeapi.co/api/v2/pokemon-species"
-  );
+const load = async (
+  url: string = "https://pokeapi.co/api/v2/pokemon-species"
+) => {
+  mainContent.innerHTML = "";
+  const pokemonListResult = await fetch(url);
   const pokemonList: PokemonSpeciesList = await pokemonListResult.json();
+  if (pokemonList.next) {
+    nextLink?.classList.remove("d-none");
+    nextLink?.removeEventListener("click", nextListener);
+    nextListener = () => load(pokemonList.next);
+    nextLink?.addEventListener("click", nextListener);
+  } else {
+    nextLink?.classList.add("d-none");
+    nextLink?.removeEventListener("click", nextListener);
+    nextListener = () => {};
+  }
+  if (pokemonList.previous) {
+    prevLink?.classList.remove("d-none");
+    prevLink?.removeEventListener("click", prevListener);
+    prevListener = () => load(pokemonList.previous);
+    prevLink?.addEventListener("click", prevListener);
+  } else {
+    prevLink?.classList.add("d-none");
+    prevLink?.removeEventListener("click", prevListener);
+    prevListener = () => {};
+  }
   await getCompositePokemon(pokemonList).then((list) =>
     list.forEach((p) => (mainContent.innerHTML += pokemonCard(p)))
   );
@@ -118,4 +146,6 @@ const pokemonCard = ({ pokemon, pokemonSpecies }: CompositePokemon): string => {
   `;
 };
 
+homeLink?.addEventListener("click", () => load());
+brandLink?.addEventListener("click", () => load());
 load();

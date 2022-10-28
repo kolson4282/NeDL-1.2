@@ -5,12 +5,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>PokeDex</title>
+    <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <div class="container">
-      <nav class="navbar navbar-expand-lg">
+      <nav class="navbar navbar-expand-lg sticky-top bg-light">
         <div class="container-fluid">
-          <a class="navbar-brand" href="#">Pokedex</a>
+          <a class="navbar-brand" id="brand">Pokedex</a>
           <button
             class="navbar-toggler"
             type="button"
@@ -24,11 +25,17 @@
           </button>
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Home</a>
+              <li class="nav-item" id="home">
+                <span class="nav-link"> Home </span>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Random</a>
+                <span class="nav-link">Random</span>
+              </li>
+              <li class="nav-item" id="previous">
+                <span class="nav-link">Previous</span>
+              </li>
+              <li class="nav-item" id="next">
+                <span class="nav-link">Next</span>
               </li>
             </ul>
             <form class="d-flex" role="search">
