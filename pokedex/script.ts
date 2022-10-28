@@ -1,12 +1,14 @@
 const mainContent = document.getElementById("mainContent") as HTMLElement;
-const nextLink = document.getElementById("next");
-const prevLink = document.getElementById("previous");
+const nextLink = document.getElementById("next"); //Link to get next page of pokemon
+const prevLink = document.getElementById("previous"); //Link to get previous page of pokemon
 const homeLink = document.getElementById("home");
 const brandLink = document.getElementById("brand");
 
+//I needed to save the listener function so that I could remove them from the Next/Previous links before adding the new ones from the new page.
 let nextListener: () => void;
 let prevListener: () => void;
 
+//Initial list of pokemon to display on a page
 type PokemonSpeciesList = {
   count: number;
   next: string;
@@ -17,6 +19,7 @@ type PokemonSpeciesList = {
   }[];
 };
 
+//Pokemon information is split between two calls. One for Pokemon and one for Pokemon Species. These are the types for those.
 type Pokemon = {
   sprites: {
     other: {
@@ -53,11 +56,14 @@ type PokemonSpecies = {
   }[];
 };
 
+//created this type to make the foreach loops look cleaner, and make it easier to pass into the function to get the Card html.
 type CompositePokemon = {
   pokemon: Pokemon;
   pokemonSpecies: PokemonSpecies;
 };
 
+//called on page load, as well as in the click listners. Default URL returns 1-20.
+//This function gets the inital list to display, assigns the click listeners to the navigation, and then gets and displays the details of the pokemon.
 const load = async (
   url: string = "https://pokeapi.co/api/v2/pokemon-species"
 ) => {
@@ -84,13 +90,13 @@ const load = async (
     prevLink?.removeEventListener("click", prevListener);
     prevListener = () => {};
   }
-  await getCompositePokemon(pokemonList).then((list) =>
+  getCompositePokemon(pokemonList).then((list) =>
     list.forEach((p) => (mainContent.innerHTML += pokemonCard(p)))
   );
-  // compPokemonList.forEach((p) => (mainContent.innerHTML += pokemonCard(p)));
-  // console.log(compPokemonList);
 };
 
+//Made this it's own function as I was spinning my head trying to get these to print in order.
+//Did a promise.all so I could sort the list after all of the data had been retrieved.
 const getCompositePokemon = async (list: PokemonSpeciesList) => {
   const promises = list.results.map(async (p) => {
     const pokemonSpecies: PokemonSpecies = await fetch(p.url).then((r) =>
@@ -107,6 +113,7 @@ const getCompositePokemon = async (list: PokemonSpeciesList) => {
   return compPokemonList;
 };
 
+//returns a string representing a pokemon card to display in the main content of the site.
 const pokemonCard = ({ pokemon, pokemonSpecies }: CompositePokemon): string => {
   const genera = pokemonSpecies.genera.find(
     (gen) => gen.language.name === "en"
@@ -146,6 +153,7 @@ const pokemonCard = ({ pokemon, pokemonSpecies }: CompositePokemon): string => {
   `;
 };
 
+/* ---------- On Page Load Stuff ----------------- */
 homeLink?.addEventListener("click", () => load());
 brandLink?.addEventListener("click", () => load());
 load();

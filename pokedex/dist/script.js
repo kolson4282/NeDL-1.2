@@ -41,9 +41,7 @@ const load = (url = "https://pokeapi.co/api/v2/pokemon-species") => __awaiter(vo
         prevLink === null || prevLink === void 0 ? void 0 : prevLink.removeEventListener("click", prevListener);
         prevListener = () => { };
     }
-    yield getCompositePokemon(pokemonList).then((list) => list.forEach((p) => (mainContent.innerHTML += pokemonCard(p))));
-    // compPokemonList.forEach((p) => (mainContent.innerHTML += pokemonCard(p)));
-    // console.log(compPokemonList);
+    getCompositePokemon(pokemonList).then((list) => list.forEach((p) => (mainContent.innerHTML += pokemonCard(p))));
 });
 const getCompositePokemon = (list) => __awaiter(void 0, void 0, void 0, function* () {
     const promises = list.results.map((p) => __awaiter(void 0, void 0, void 0, function* () {
