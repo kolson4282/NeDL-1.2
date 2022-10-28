@@ -1,26 +1,20 @@
-<div *ngIf="pokemon" class="col-xs-6 col-md-4 col-lg-3 col-xxl-2">
-  <div class="card" style="height: 100%">
-    <img
-      src="{{
-        pokemon.pokemon.sprites.other['official-artwork'].front_default
-      }}"
-    />
-    <div class="card-body">
-      <div class="card-title">
-        {{ pokemon.species.id }} - {{ pokemon.species.name | uppercase }}
-      </div>
+<div *ngIf="pokemon && species" class="card" style="height: 100%">
+  <img src="{{ pokemon.sprites.other['official-artwork'].front_default }}" />
+  <div class="card-body">
+    <div class="card-title">
+      {{ species.id }} - {{ species.name | uppercase }}
     </div>
-    <ul
-      class="list-group list-group-horizontal justify-content-center"
+  </div>
+  <ul
+    class="list-group list-group-horizontal justify-content-center"
+    style="width: 100%"
+  >
+    <li
+      *ngFor="let type of pokemon.types"
+      class="list-group-item .flex-fill"
       style="width: 100%"
     >
-      <li
-        *ngFor="let type of pokemon.pokemon.types"
-        class="list-group-item .flex-fill"
-        style="width: 100%"
-      >
-        {{ type.type.name | uppercase }}
-      </li>
-    </ul>
-  </div>
+      {{ type.type.name | uppercase }}
+    </li>
+  </ul>
 </div>

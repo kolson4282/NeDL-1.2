@@ -9,8 +9,13 @@ import { PokemonListComponent } from './pokemon-list/pokemon-list.component';
 import { NavbarComponent } from './navbar/navbar.component';
 
 @NgModule({
-  declarations: [AppComponent, PokemonCardComponent, PokemonListComponent, NavbarComponent],
-  imports: [BrowserModule, AppRoutingModule],
+  declarations: [
+    AppComponent,
+    PokemonCardComponent,
+    PokemonListComponent,
+    NavbarComponent,
+  ],
+  imports: [BrowserModule, AppRoutingModule, HttpClientModule],
   providers: [],
   bootstrap: [AppComponent],
 })

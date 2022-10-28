@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { CompositePokemon } from '../Pokemon';
+import { PokeapiService } from '../pokeapi.service';
+import { Pokemon, PokemonSpecies } from '../Pokemon';
 
 @Component({
   selector: 'app-pokemon-card',
@@ -7,9 +8,26 @@ import { CompositePokemon } from '../Pokemon';
   styleUrls: ['./pokemon-card.component.css'],
 })
 export class PokemonCardComponent implements OnInit {
-  @Input() pokemon?: CompositePokemon;
+  @Input() speciesUrl: string = '';
+  pokemon?: Pokemon;
+  species?: PokemonSpecies;
 
-  constructor() {}
+  constructor(private pokeapi: PokeapiService) {}
 
-  ngOnInit(): void {}
+  getPokemonSpecies() {
+    this.pokeapi.getFromURL<PokemonSpecies>(this.speciesUrl).subscribe((s) => {
+      this.species = s;
+      this.getPokemon();
+    });
+  }
+
+  getPokemon() {
+    this.pokeapi
+      .getFromURL<Pokemon>(this.species?.varieties[0].pokemon.url || '')
+      .subscribe((p) => (this.pokemon = p));
+  }
+
+  ngOnInit(): void {
+    this.getPokemonSpecies();
+  }
 }
