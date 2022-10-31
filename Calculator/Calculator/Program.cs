@@ -13,34 +13,34 @@ namespace CalculatorProgram
             Console.WriteLine("Console Calculator in C#\r");
             Console.WriteLine("------------------------\n");
 
-            Calculator calculator = new Calculator();
+            Calculator calculator = new();
             while (!endApp)
             {
                 // Declare variables and set to empty.
-                string numInput1 = "";
-                string numInput2 = "";
-                double result = 0;
+                string numInput1;
+                string numInput2;
+                double result;
 
                 // Ask the user to type the first number.
                 Console.Write("Type a number, and then press Enter: ");
-                numInput1 = Console.ReadLine();
+                numInput1 = Console.ReadLine()!;
 
-                double cleanNum1 = 0;
+                double cleanNum1;
                 while (!double.TryParse(numInput1, out cleanNum1))
                 {
                     Console.Write("This is not valid input. Please enter an integer value: ");
-                    numInput1 = Console.ReadLine();
+                    numInput1 = Console.ReadLine()!;
                 }
 
                 // Ask the user to type the second number.
                 Console.Write("Type another number, and then press Enter: ");
-                numInput2 = Console.ReadLine();
+                numInput2 = Console.ReadLine()!;
 
-                double cleanNum2 = 0;
+                double cleanNum2;
                 while (!double.TryParse(numInput2, out cleanNum2))
                 {
                     Console.Write("This is not valid input. Please enter an integer value: ");
-                    numInput2 = Console.ReadLine();
+                    numInput2 = Console.ReadLine()!;
                 }
 
                 // Ask the user to choose an operator.
@@ -51,7 +51,7 @@ namespace CalculatorProgram
                 Console.WriteLine("\td - Divide");
                 Console.Write("Your option? ");
 
-                string op = Console.ReadLine();
+                string op = Console.ReadLine()!;
 
                 try
                 {

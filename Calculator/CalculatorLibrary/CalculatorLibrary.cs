@@ -7,15 +7,16 @@ namespace CalculatorLibrary
 {
     public class Calculator
     {
-
-        JsonWriter writer;
+        readonly JsonWriter writer;
 
         public Calculator()
         {
             StreamWriter logFile = File.CreateText("calculatorlog.json");
             logFile.AutoFlush = true;
-            writer = new JsonTextWriter(logFile);
-            writer.Formatting = Formatting.Indented;
+            writer = new JsonTextWriter(logFile)
+            {
+                Formatting = Formatting.Indented
+            };
             writer.WriteStartObject();
             writer.WritePropertyName("Operations");
             writer.WriteStartArray();
