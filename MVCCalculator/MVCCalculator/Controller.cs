@@ -4,8 +4,8 @@ namespace MVCCalculator
 {
     class Controller
     {
-        View view;
-        Model model;
+        private View view;
+        private Model model;
         public Controller()
         {
             view = new View();
