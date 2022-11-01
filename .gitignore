@@ -1,5 +1,5 @@
-.vscode
-.vs
+**/.vscode
+**/.vs
 **/obj/**
 **/bin/**
 .DS_Store
