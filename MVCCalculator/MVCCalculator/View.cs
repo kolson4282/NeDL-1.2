@@ -22,7 +22,7 @@ namespace MVCCalculator
             return number;
         }
 
-        public string GetOperator(Option[] options)
+        public string GetOperator(List<Option> options)
         {
             string input;
             do
@@ -42,7 +42,7 @@ namespace MVCCalculator
 
         }
 
-        private bool IsValidOperation(Option[] options, string op)
+        private bool IsValidOperation(List<Option> options, string op)
         {
             foreach (Option option in options)
             {

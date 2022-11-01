@@ -17,14 +17,14 @@ namespace MVCCalculator
             get { return num2; }
             set { num2 = value; }
         }
-        private Option[] options = new Option[] {
+        private List<Option> options = new List<Option> {
                 new Option("a", "Add two numbers"),
                 new Option("s", "Subtract two numbers"),
                 new Option("m", "Multiply two numbers"),
                 new Option("d", "Divide two numbers")
             };
 
-        public Option[] Options
+        public List<Option> Options
         {
             get { return options; }
         }
