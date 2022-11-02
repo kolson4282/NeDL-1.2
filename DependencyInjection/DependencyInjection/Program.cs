@@ -12,9 +12,9 @@
             ProductService productService2 = new ProductService(logger2);
             productService2.Log("Hello World From the Database");
 
-            ILogger logger3 = new CloudLogger();
+            ILogger logger3 = new EventLogger();
             ProductService productService3 = new ProductService(logger3);
-            productService3.Log("Hello from the cloud");
+            productService3.Log("Hello World");
 
         }
     }
