@@ -56,5 +56,31 @@ namespace BankTests
 
             Assert.Fail("The expected exception was not thrown");
         }
+
+        [TestMethod]
+        public void Credit_ValidAmount_AddsToBalance()
+        {
+            // arrange
+            double currentBalance = 10.0;
+            double credit = 1.0;
+            double expected = 11.0;
+            var account = new BankAccount("JohnDoe", currentBalance);
+
+            // act
+            account.Credit(credit);
+
+            // assert
+            Assert.AreEqual(expected, account.Balance);
+        }
+
+        [TestMethod]
+        public void Withdraw_AmountLessThanZero_Throws()
+        {
+            // arrange
+            var account = new BankAccount("John Doe", 10.0);
+
+            // act and assert
+            Assert.ThrowsException<System.ArgumentOutOfRangeException>(() => account.Credit(-20.0));
+        }
     }
 }
