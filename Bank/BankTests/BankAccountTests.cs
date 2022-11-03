@@ -74,7 +74,7 @@ namespace BankTests
         }
 
         [TestMethod]
-        public void Withdraw_AmountLessThanZero_Throws()
+        public void Credit_AmountLessThanZero_Throws()
         {
             // arrange
             var account = new BankAccount("John Doe", 10.0);
