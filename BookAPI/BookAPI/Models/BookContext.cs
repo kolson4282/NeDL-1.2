@@ -7,5 +7,6 @@ namespace BookAPI.Models
         public BookContext(DbContextOptions<BookContext> options) : base(options) { }
 
         public DbSet<Book> Books { get; set; } = null!;
+        public DbSet<Genre> Genres { get; set; } = null!;
     }
 }

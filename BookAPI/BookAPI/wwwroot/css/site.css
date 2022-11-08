@@ -2,7 +2,8 @@
     cursor: pointer;
 }
 
-#editForm {
+#editForm,
+#editGenreForm {
     display: none;
 }
 
