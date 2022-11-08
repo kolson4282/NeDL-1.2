@@ -137,7 +137,7 @@ function _displayItems(data) {
 
 
         genre = genres.find(genre => genre.id === item.genreId)
-            let td4 = tr.insertCell(3);
+        let td4 = tr.insertCell(3);
         if (genre) {
             textNode = document.createTextNode(genre.name);
             td4.appendChild(textNode);
@@ -155,13 +155,23 @@ function _displayItems(data) {
 
 function _fillGenreSelect(selectNode) {
     selectNode.innerHTML = "";
-    genres.forEach(genre => {
+    if (genres.length === 0) {
         const option = document.createElement('option');
-        option.value = genre.id;
-        option.innerHTML = genre.name;
+        option.value = "";
+        option.innerText = "Please add a genre to the genre list.";
+        option.disabled = true;
+        option.selected = true;
 
         selectNode.appendChild(option);
-    })
+    } else {
+        genres.forEach(genre => {
+            const option = document.createElement('option');
+            option.value = genre.id;
+            option.innerHTML = genre.name;
+
+            selectNode.appendChild(option);
+        })
+    }
 }
 
 //----------- Genre Crud Stuff ------------------
