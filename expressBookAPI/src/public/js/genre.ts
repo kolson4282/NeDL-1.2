@@ -30,6 +30,7 @@ const addGenre = async () => {
     },
     body: JSON.stringify(genre),
   });
+  nameInput.value = "";
   refresh();
 };
 

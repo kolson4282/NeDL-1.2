@@ -32,6 +32,9 @@ const addBook = () => __awaiter(void 0, void 0, void 0, function* () {
         },
         body: JSON.stringify(book),
     });
+    titleInput.value = "";
+    authorInput.value = "";
+    genreSelect.value = `${genres[0].id}`;
     getBooks();
 });
 const openBookEdit = (id) => {

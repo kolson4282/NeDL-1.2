@@ -28,6 +28,7 @@ const addGenre = () => __awaiter(void 0, void 0, void 0, function* () {
         },
         body: JSON.stringify(genre),
     });
+    nameInput.value = "";
     refresh();
 });
 const openGenreEdit = (id) => {

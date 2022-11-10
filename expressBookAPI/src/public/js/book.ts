@@ -40,6 +40,9 @@ const addBook = async () => {
     },
     body: JSON.stringify(book),
   });
+  titleInput.value = "";
+  authorInput.value = "";
+  genreSelect.value = `${genres[0].id}`;
   getBooks();
 };
 
