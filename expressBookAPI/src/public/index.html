@@ -1,15 +1,73 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
     <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Book CRUD</title>
+    <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <h1>Hello</h1>
-    <ul id="books"></ul>
+    <h1>Book CRUD</h1>
+    <h3>Add</h3>
+    <form>
+      <input type="text" id="add-title" placeholder="Title" />
+      <input type="text" id="add-author" placeholder="Author" />
+      <select id="add-book-genre"></select>
+      <input type="submit" value="Add" />
+    </form>
 
-    <script src="script.js" type="text/javascript"></script>
+    <div id="editForm">
+      <h3>Edit</h3>
+      <form>
+        <input type="hidden" disabled id="edit-id" />
+        <input type="checkbox" id="edit-isRead" />
+        <input type="text" id="edit-title" />
+        <input type="text" id="edit-author" />
+        <select id="edit-book-genre"></select>
+        <input type="submit" value="Save" />
+        <a aria-label="Close">&#10006;</a>
+      </form>
+    </div>
+
+    <p id="counter"></p>
+
+    <table>
+      <tr>
+        <th>Title</th>
+        <th>Author</th>
+        <th>Genre</th>
+        <th></th>
+        <th></th>
+      </tr>
+      <tbody id="books"></tbody>
+    </table>
+
+    <h1>Genre CRUD</h1>
+    <h3>Add</h3>
+    <form>
+      <input type="text" id="add-genre-name" placeholder="Title" />
+      <input type="submit" value="Add" />
+    </form>
+
+    <div id="editGenreForm">
+      <h3>Edit</h3>
+      <form>
+        <input type="hidden" disabled id="edit-genre-id" />
+        <input type="text" id="edit-genre-name" />
+        <input type="submit" value="Save" />
+        <a aria-label="Close">&#10006;</a>
+      </form>
+    </div>
+
+    <p id="genre-counter"></p>
+
+    <table>
+      <tr>
+        <th>Name</th>
+        <th></th>
+      </tr>
+      <tbody id="genres"></tbody>
+    </table>
+
+    <script src="js/script.js"></script>
   </body>
 </html>
