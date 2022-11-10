@@ -24,6 +24,8 @@ const genres: Genre[] = [
 
 let genreID = 4;
 
+// endpoint /api/genres
+
 genreRouter.get("/", (req, res) => {
   res.send(genres);
 });
