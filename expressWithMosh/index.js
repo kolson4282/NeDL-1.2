@@ -40,8 +40,7 @@ app.get("/api/courses/:id", (req, res) => {
 app.post("/api/courses", (req, res) => {
   const { error } = validateCourse(req.body);
   if (error) {
-    res.status(400).send(error.details[0].message);
-    return;
+    return res.status(400).send(error.details[0].message);
   }
 
   const course = {
@@ -56,14 +55,12 @@ app.post("/api/courses", (req, res) => {
 app.put("/api/courses/:id", (req, res) => {
   const course = getCourse(req.params.id);
   if (!course) {
-    res.status(404).send("Could not find that course");
-    return;
+    return res.status(404).send("Could not find that course");
   }
 
   const { error } = validateCourse(req.body);
   if (error) {
-    res.status(400).send(error.details[0].message);
-    return;
+    return res.status(400).send(error.details[0].message);
   }
 
   course.name = req.body.name;
@@ -73,8 +70,7 @@ app.put("/api/courses/:id", (req, res) => {
 app.delete("/api/courses/:id", (req, res) => {
   const course = getCourse(req.params.id);
   if (!course) {
-    res.status(404).send("Could not find that course");
-    return;
+    return res.status(404).send("Could not find that course");
   }
   const index = courses.indexOf(course);
   courses.splice(index, 1);
