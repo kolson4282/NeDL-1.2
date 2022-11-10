@@ -24,6 +24,11 @@ const getBooks = async () => {
   displayBooks();
 };
 
+const deleteBook = async (id: number) => {
+  await fetch(`${bookUri}/${id}`, { method: "DELETE" });
+  refresh();
+};
+
 const displayBooks = () => {
   const bookTable = document.getElementById("books") as HTMLTableElement;
   if (!bookTable) return;
@@ -50,7 +55,7 @@ const displayBooks = () => {
 
     const deleteButton = document.createElement("button");
     deleteButton.innerText = "Delete";
-    deleteButton.onclick = () => console.log("delete genre " + book.id);
+    deleteButton.onclick = () => deleteBook(book.id);
     const deleteCell = row.insertCell();
     deleteCell.append(deleteButton);
   });

@@ -17,6 +17,10 @@ const getBooks = () => __awaiter(void 0, void 0, void 0, function* () {
     books = yield response.json();
     displayBooks();
 });
+const deleteBook = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    yield fetch(`${bookUri}/${id}`, { method: "DELETE" });
+    refresh();
+});
 const displayBooks = () => {
     const bookTable = document.getElementById("books");
     if (!bookTable)
@@ -38,7 +42,7 @@ const displayBooks = () => {
         editCell.append(editButton);
         const deleteButton = document.createElement("button");
         deleteButton.innerText = "Delete";
-        deleteButton.onclick = () => console.log("delete genre " + book.id);
+        deleteButton.onclick = () => deleteBook(book.id);
         const deleteCell = row.insertCell();
         deleteCell.append(deleteButton);
     });
