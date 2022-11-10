@@ -15,18 +15,16 @@
       <input type="submit" value="Add" />
     </form>
 
-    <div class="editForm">
+    <form id="bookEditForm" class="editForm">
       <h3>Edit</h3>
-      <form id="bookEditForm">
-        <input type="hidden" disabled id="edit-id" />
-        <input type="checkbox" id="edit-isRead" />
-        <input type="text" id="edit-title" />
-        <input type="text" id="edit-author" />
-        <select id="edit-book-genre"></select>
-        <input type="submit" value="Save" />
-        <a aria-label="Close">&#10006;</a>
-      </form>
-    </div>
+      <input type="hidden" disabled id="edit-id" />
+      <input type="checkbox" id="edit-isRead" />
+      <input type="text" id="edit-title" />
+      <input type="text" id="edit-author" />
+      <select id="edit-book-genre"></select>
+      <input type="submit" value="Save" />
+      <a aria-label="Close">&#10006;</a>
+    </form>
 
     <p id="counter"></p>
 
@@ -48,15 +46,13 @@
       <input type="submit" value="Add" />
     </form>
 
-    <div class="editForm">
+    <form id="genreEditForm" class="editForm">
       <h3>Edit</h3>
-      <form id="genreEditForm">
-        <input type="hidden" disabled id="edit-genre-id" />
-        <input type="text" id="edit-genre-name" />
-        <input type="submit" value="Save" />
-        <a aria-label="Close">&#10006;</a>
-      </form>
-    </div>
+      <input type="hidden" disabled id="edit-genre-id" />
+      <input type="text" id="edit-genre-name" />
+      <input type="submit" value="Save" />
+      <a onClick="closeGenreEdit()" aria-label="Close">&#10006;</a>
+    </form>
 
     <p id="genre-counter"></p>
 

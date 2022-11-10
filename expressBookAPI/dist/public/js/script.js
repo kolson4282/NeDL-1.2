@@ -86,6 +86,41 @@ const addGenre = () => __awaiter(void 0, void 0, void 0, function* () {
     });
     refresh();
 });
+const openGenreEdit = (id) => {
+    const genre = genres.find((genre) => genre.id === id);
+    if (!genre)
+        return console.error("Couldn't find that genre");
+    const nameEditInput = document.getElementById("edit-genre-name");
+    nameEditInput.value = genre.name;
+    const genreEditInput = document.getElementById("edit-genre-id");
+    genreEditInput.value = `${genre.id}`;
+    const genreEditForm = document.getElementById("genreEditForm");
+    genreEditForm.style.display = "block";
+    genreEditForm.addEventListener("submit", (e) => updateGenre(e));
+};
+const updateGenre = (e) => __awaiter(void 0, void 0, void 0, function* () {
+    e.preventDefault();
+    const nameEdit = document.getElementById("edit-genre-name");
+    const idEdit = document.getElementById("edit-genre-id");
+    const genre = {
+        name: nameEdit.value,
+    };
+    yield fetch(`${genreUri}/${idEdit.value}`, {
+        method: "PUT",
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(genre),
+    });
+    closeGenreEdit();
+    refresh();
+});
+const closeGenreEdit = () => {
+    const genreEditForm = document.getElementById("genreEditForm");
+    genreEditForm.style.display = "none";
+    genreEditForm.removeEventListener("submit", (e) => updateGenre(e));
+};
 const deleteGenre = (id) => __awaiter(void 0, void 0, void 0, function* () {
     yield fetch(`${genreUri}/${id}`, { method: "DELETE" });
     refresh();
@@ -101,7 +136,7 @@ const displayGenres = () => {
         nameCell.innerText = genre.name;
         const editButton = document.createElement("button");
         editButton.innerText = "Edit";
-        editButton.onclick = () => console.log("edit genre " + genre.id);
+        editButton.onclick = () => openGenreEdit(genre.id);
         const editCell = row.insertCell();
         editCell.append(editButton);
         const deleteButton = document.createElement("button");

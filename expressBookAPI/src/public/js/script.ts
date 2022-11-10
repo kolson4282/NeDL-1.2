@@ -114,6 +114,57 @@ const addGenre = async () => {
   refresh();
 };
 
+const openGenreEdit = (id: number) => {
+  const genre = genres.find((genre) => genre.id === id);
+  if (!genre) return console.error("Couldn't find that genre");
+
+  const nameEditInput = document.getElementById(
+    "edit-genre-name"
+  ) as HTMLInputElement;
+  nameEditInput.value = genre.name;
+
+  const genreEditInput = document.getElementById(
+    "edit-genre-id"
+  ) as HTMLInputElement;
+  genreEditInput.value = `${genre.id}`;
+
+  const genreEditForm = document.getElementById(
+    "genreEditForm"
+  ) as HTMLFormElement;
+  genreEditForm.style.display = "block";
+  genreEditForm.addEventListener("submit", (e) => updateGenre(e));
+};
+
+const updateGenre = async (e: Event) => {
+  e.preventDefault();
+  const nameEdit = document.getElementById(
+    "edit-genre-name"
+  ) as HTMLInputElement;
+  const idEdit = document.getElementById("edit-genre-id") as HTMLInputElement;
+
+  const genre = {
+    name: nameEdit.value,
+  };
+  await fetch(`${genreUri}/${idEdit.value}`, {
+    method: "PUT",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(genre),
+  });
+  closeGenreEdit();
+  refresh();
+};
+
+const closeGenreEdit = () => {
+  const genreEditForm = document.getElementById(
+    "genreEditForm"
+  ) as HTMLFormElement;
+  genreEditForm.style.display = "none";
+  genreEditForm.removeEventListener("submit", (e) => updateGenre(e));
+};
+
 const deleteGenre = async (id: number) => {
   await fetch(`${genreUri}/${id}`, { method: "DELETE" });
   refresh();
@@ -132,7 +183,7 @@ const displayGenres = () => {
 
     const editButton = document.createElement("button");
     editButton.innerText = "Edit";
-    editButton.onclick = () => console.log("edit genre " + genre.id);
+    editButton.onclick = () => openGenreEdit(genre.id);
     const editCell = row.insertCell();
     editCell.append(editButton);
 
