@@ -6,10 +6,7 @@ const app = express();
 
 app.use(express.json());
 app.use(express.static("src/public"));
-
-// app.get("/", (req, res) => {
-//   res.sendFile(path.join(__dirname, "../public/index.html"));
-// });
+app.use(express.static("dist/public"));
 
 app.get("/api", (req, res) => {
   res.send("This is my book API");

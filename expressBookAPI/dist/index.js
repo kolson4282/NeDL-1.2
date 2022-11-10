@@ -9,6 +9,7 @@ const genreRoutes_1 = __importDefault(require("./genreRoutes"));
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
 app.use(express_1.default.static("src/public"));
+app.use(express_1.default.static("dist/public"));
 app.get("/api", (req, res) => {
     res.send("This is my book API");
 });
