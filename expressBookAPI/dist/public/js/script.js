@@ -26,7 +26,6 @@ const addBook = () => __awaiter(void 0, void 0, void 0, function* () {
         author: authorInput.value,
         genreID: genreSelect.value,
     };
-    console.log(genreSelect.value);
     yield fetch(bookUri, {
         method: "POST",
         headers: {
@@ -72,6 +71,21 @@ const getGenres = () => __awaiter(void 0, void 0, void 0, function* () {
     genres = yield response.json();
     displayGenres();
 });
+const addGenre = () => __awaiter(void 0, void 0, void 0, function* () {
+    const nameInput = document.getElementById("add-genre-name");
+    const genre = {
+        name: nameInput.value,
+    };
+    yield fetch(genreUri, {
+        method: "POST",
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(genre),
+    });
+    refresh();
+});
 const deleteGenre = (id) => __awaiter(void 0, void 0, void 0, function* () {
     yield fetch(`${genreUri}/${id}`, { method: "DELETE" });
     refresh();
@@ -99,6 +113,7 @@ const displayGenres = () => {
     fillGenreSelect(document.getElementById("add-book-genre"));
 };
 const fillGenreSelect = (select) => {
+    select.innerHTML = "";
     genres.forEach((genre) => {
         const option = document.createElement("option");
         option.value = `${genre.id}`;
@@ -115,5 +130,10 @@ const bookAddForm = document.getElementById("bookAddForm");
 bookAddForm.addEventListener("submit", (e) => {
     e.preventDefault();
     addBook();
+});
+const genreAddForm = document.getElementById("genreAddForm");
+genreAddForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    addGenre();
 });
 //# sourceMappingURL=script.js.map

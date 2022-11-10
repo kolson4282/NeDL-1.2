@@ -40,7 +40,6 @@ const addBook = async () => {
     author: authorInput.value,
     genreID: genreSelect.value,
   };
-  console.log(genreSelect.value);
   await fetch(bookUri, {
     method: "POST",
     headers: {
@@ -96,6 +95,25 @@ const getGenres = async () => {
   displayGenres();
 };
 
+const addGenre = async () => {
+  const nameInput = document.getElementById(
+    "add-genre-name"
+  ) as HTMLInputElement;
+
+  const genre = {
+    name: nameInput.value,
+  };
+  await fetch(genreUri, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(genre),
+  });
+  refresh();
+};
+
 const deleteGenre = async (id: number) => {
   await fetch(`${genreUri}/${id}`, { method: "DELETE" });
   refresh();
@@ -130,6 +148,7 @@ const displayGenres = () => {
 };
 
 const fillGenreSelect = (select: HTMLSelectElement) => {
+  select.innerHTML = "";
   genres.forEach((genre) => {
     const option = document.createElement("option");
     option.value = `${genre.id}`;
@@ -150,4 +169,10 @@ const bookAddForm = document.getElementById("bookAddForm") as HTMLFormElement;
 bookAddForm.addEventListener("submit", (e) => {
   e.preventDefault();
   addBook();
+});
+
+const genreAddForm = document.getElementById("genreAddForm") as HTMLFormElement;
+genreAddForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  addGenre();
 });

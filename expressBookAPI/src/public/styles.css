@@ -4,8 +4,7 @@ button,
   cursor: pointer;
 }
 
-#editForm,
-#editGenreForm {
+.editForm {
   display: none;
 }
 
