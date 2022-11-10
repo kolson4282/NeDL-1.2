@@ -1,12 +1,13 @@
 import Joi from "joi";
 import express from "express";
+import { findGenre } from "./genreRoutes";
 const bookRouter = express.Router();
 
 type Book = {
   id: number;
   title: string;
   author: string;
-  genre: string;
+  genreID: number;
 };
 
 const books: Book[] = [
@@ -14,13 +15,13 @@ const books: Book[] = [
     id: 1,
     title: "Hitchikers Guide to the Galaxy",
     author: "Douglas Adams",
-    genre: "Sci-Fi",
+    genreID: 1,
   },
   {
     id: 2,
     title: "The Way of Kings",
     author: "Brandon Sanderson",
-    genre: "Fantasy",
+    genreID: 2,
   },
 ];
 
@@ -46,6 +47,8 @@ bookRouter.post("/", (req, res) => {
     id: bookID,
     ...body,
   };
+  if (!findGenre(book.genreID))
+    return res.status(404).send("Could not find a genre with that ID");
   bookID++;
   books.push(book);
   res.send(book);
@@ -61,7 +64,7 @@ bookRouter.put("/:id", (req, res) => {
 
   book.title = body.title;
   book.author = body.author;
-  book.genre = body.genre;
+  book.genreID = body.genreID;
 
   res.send(book);
 });
@@ -83,7 +86,7 @@ const validateBook = (book: any): Joi.ValidationResult<any> => {
   const schema = Joi.object({
     title: Joi.string().min(3).required(),
     author: Joi.string().min(3).required(),
-    genre: Joi.string().required(),
+    genreID: Joi.number().required(),
   });
   return schema.validate(book);
 };

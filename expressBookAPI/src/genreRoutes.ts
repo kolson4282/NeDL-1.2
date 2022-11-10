@@ -70,7 +70,7 @@ genreRouter.delete("/:id", (req, res) => {
   res.send(genre);
 });
 
-const findGenre = (id: string | number): Genre | undefined => {
+export const findGenre = (id: string | number): Genre | undefined => {
   return genres.find((genre) => genre.id === parseInt(`${id}`));
 };
 

@@ -3,6 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.findGenre = void 0;
 const joi_1 = __importDefault(require("joi"));
 const express_1 = __importDefault(require("express"));
 const genreRouter = express_1.default.Router();
@@ -25,7 +26,7 @@ genreRouter.get("/", (req, res) => {
     res.send(genres);
 });
 genreRouter.get("/:id", (req, res) => {
-    const genre = findGenre(req.params.id);
+    const genre = (0, exports.findGenre)(req.params.id);
     if (!genre)
         return res.status(404).send("Could not find a genre with that ID");
     res.send(genre);
@@ -41,7 +42,7 @@ genreRouter.post("/", (req, res) => {
     res.send(genre);
 });
 genreRouter.put("/:id", (req, res) => {
-    const genre = findGenre(req.params.id);
+    const genre = (0, exports.findGenre)(req.params.id);
     if (!genre)
         return res.status(404).send("Could not find that genre");
     const body = req.body;
@@ -52,7 +53,7 @@ genreRouter.put("/:id", (req, res) => {
     res.send(genre);
 });
 genreRouter.delete("/:id", (req, res) => {
-    const genre = findGenre(req.params.id);
+    const genre = (0, exports.findGenre)(req.params.id);
     if (!genre)
         return res.status(404).send("Could not find that genre");
     const index = genres.indexOf(genre);
@@ -62,6 +63,7 @@ genreRouter.delete("/:id", (req, res) => {
 const findGenre = (id) => {
     return genres.find((genre) => genre.id === parseInt(`${id}`));
 };
+exports.findGenre = findGenre;
 const validateGenre = (genre) => {
     const schema = joi_1.default.object({
         name: joi_1.default.string().min(3).required(),

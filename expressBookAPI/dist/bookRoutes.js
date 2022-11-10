@@ -5,19 +5,20 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const joi_1 = __importDefault(require("joi"));
 const express_1 = __importDefault(require("express"));
+const genreRoutes_1 = require("./genreRoutes");
 const bookRouter = express_1.default.Router();
 const books = [
     {
         id: 1,
         title: "Hitchikers Guide to the Galaxy",
         author: "Douglas Adams",
-        genre: "Sci-Fi",
+        genreID: 1,
     },
     {
         id: 2,
         title: "The Way of Kings",
         author: "Brandon Sanderson",
-        genre: "Fantasy",
+        genreID: 2,
     },
 ];
 let bookID = 3;
@@ -36,6 +37,8 @@ bookRouter.post("/", (req, res) => {
     if (error)
         return res.status(400).send(error.details[0].message);
     const book = Object.assign({ id: bookID }, body);
+    if (!(0, genreRoutes_1.findGenre)(book.genreID))
+        return res.status(404).send("Could not find a genre with that ID");
     bookID++;
     books.push(book);
     res.send(book);
@@ -50,7 +53,7 @@ bookRouter.put("/:id", (req, res) => {
         return res.status(400).send(error.details[0].message);
     book.title = body.title;
     book.author = body.author;
-    book.genre = body.genre;
+    book.genreID = body.genreID;
     res.send(book);
 });
 bookRouter.delete("/:id", (req, res) => {
@@ -68,7 +71,7 @@ const validateBook = (book) => {
     const schema = joi_1.default.object({
         title: joi_1.default.string().min(3).required(),
         author: joi_1.default.string().min(3).required(),
-        genre: joi_1.default.string().required(),
+        genreID: joi_1.default.number().required(),
     });
     return schema.validate(book);
 };
