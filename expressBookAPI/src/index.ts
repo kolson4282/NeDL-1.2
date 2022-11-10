@@ -1,5 +1,6 @@
 import express from "express";
 import bookRouter from "./bookRoutes";
+import genreRouter from "./genreRoutes";
 const app = express();
 
 app.use(express.json());
@@ -13,6 +14,7 @@ app.get("/api", (req, res) => {
 });
 
 app.use("/api/books", bookRouter);
+app.use("/api/genres", genreRouter);
 
 app.listen(3000, () => {
   console.log("Listening on port 3000");
