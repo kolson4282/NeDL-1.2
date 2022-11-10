@@ -24,6 +24,34 @@ const getBooks = async () => {
   displayBooks();
 };
 
+const addBook = async () => {
+  const titleInput = document.getElementById(
+    "add-book-title"
+  ) as HTMLInputElement;
+  const authorInput = document.getElementById(
+    "add-book-author"
+  ) as HTMLInputElement;
+  const genreSelect = document.getElementById(
+    "add-book-genre"
+  ) as HTMLSelectElement;
+
+  const book = {
+    title: titleInput.value,
+    author: authorInput.value,
+    genreID: genreSelect.value,
+  };
+  console.log(genreSelect.value);
+  await fetch(bookUri, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(book),
+  });
+  getBooks();
+};
+
 const deleteBook = async (id: number) => {
   await fetch(`${bookUri}/${id}`, { method: "DELETE" });
   refresh();
@@ -96,6 +124,19 @@ const displayGenres = () => {
     const deleteCell = row.insertCell();
     deleteCell.append(deleteButton);
   });
+  fillGenreSelect(
+    document.getElementById("add-book-genre") as HTMLSelectElement
+  );
+};
+
+const fillGenreSelect = (select: HTMLSelectElement) => {
+  genres.forEach((genre) => {
+    const option = document.createElement("option");
+    option.value = `${genre.id}`;
+    option.innerText = genre.name;
+
+    select.append(option);
+  });
 };
 
 //initialization stuff
@@ -104,3 +145,9 @@ const refresh = async () => {
   await getBooks();
 };
 refresh();
+
+const bookAddForm = document.getElementById("bookAddForm") as HTMLFormElement;
+bookAddForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  addBook();
+});

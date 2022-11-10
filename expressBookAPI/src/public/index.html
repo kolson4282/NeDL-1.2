@@ -8,16 +8,16 @@
   <body>
     <h1>Book CRUD</h1>
     <h3>Add</h3>
-    <form>
-      <input type="text" id="add-title" placeholder="Title" />
-      <input type="text" id="add-author" placeholder="Author" />
+    <form id="bookAddForm">
+      <input type="text" id="add-book-title" placeholder="Title" />
+      <input type="text" id="add-book-author" placeholder="Author" />
       <select id="add-book-genre"></select>
       <input type="submit" value="Add" />
     </form>
 
     <div id="editForm">
       <h3>Edit</h3>
-      <form>
+      <form id="bookEditForm">
         <input type="hidden" disabled id="edit-id" />
         <input type="checkbox" id="edit-isRead" />
         <input type="text" id="edit-title" />
