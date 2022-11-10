@@ -51,6 +51,77 @@ const addBook = async () => {
   getBooks();
 };
 
+const openBookEdit = (id: number) => {
+  const book = books.find((book) => book.id === id);
+  if (!book) return console.error("Couldn't find that book");
+
+  const titleEditInput = document.getElementById(
+    "edit-book-title"
+  ) as HTMLInputElement;
+  titleEditInput.value = book.title;
+
+  const authorEditInput = document.getElementById(
+    "edit-book-author"
+  ) as HTMLInputElement;
+  authorEditInput.value = book.author;
+
+  const genreEditSelect = document.getElementById(
+    "edit-book-genre"
+  ) as HTMLSelectElement;
+  fillGenreSelect(genreEditSelect);
+  genreEditSelect.value = `${book.genreID}`;
+
+  const idEditInput = document.getElementById(
+    "edit-book-id"
+  ) as HTMLInputElement;
+  idEditInput.value = `${book.id}`;
+
+  const bookEditForm = document.getElementById(
+    "bookEditForm"
+  ) as HTMLFormElement;
+  bookEditForm.style.display = "block";
+  bookEditForm.addEventListener("submit", (e) => updateBook(e));
+};
+
+const updateBook = async (e: Event) => {
+  e.preventDefault();
+  const titleEdit = document.getElementById(
+    "edit-book-title"
+  ) as HTMLInputElement;
+  const authorEdit = document.getElementById(
+    "edit-book-author"
+  ) as HTMLInputElement;
+  const genreEdit = document.getElementById(
+    "edit-book-genre"
+  ) as HTMLSelectElement;
+  const idEdit = document.getElementById("edit-book-id") as HTMLInputElement;
+
+  const book = {
+    title: titleEdit.value,
+    author: authorEdit.value,
+    genreID: genreEdit.value,
+  };
+
+  await fetch(`${bookUri}/${idEdit.value}`, {
+    method: "PUT",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(book),
+  });
+  closeBookEdit();
+  getBooks();
+};
+
+const closeBookEdit = () => {
+  const bookEditForm = document.getElementById(
+    "bookEditForm"
+  ) as HTMLFormElement;
+  bookEditForm.style.display = "none";
+  bookEditForm.removeEventListener("submit", (e) => updateBook(e));
+};
+
 const deleteBook = async (id: number) => {
   await fetch(`${bookUri}/${id}`, { method: "DELETE" });
   refresh();
@@ -76,7 +147,7 @@ const displayBooks = () => {
 
     const editButton = document.createElement("button");
     editButton.innerText = "Edit";
-    editButton.onclick = () => console.log("edit genre " + book.id);
+    editButton.onclick = () => openBookEdit(book.id);
     const editCell = row.insertCell();
     editCell.append(editButton);
 

@@ -17,13 +17,12 @@
 
     <form id="bookEditForm" class="editForm">
       <h3>Edit</h3>
-      <input type="hidden" disabled id="edit-id" />
-      <input type="checkbox" id="edit-isRead" />
-      <input type="text" id="edit-title" />
-      <input type="text" id="edit-author" />
+      <input type="hidden" disabled id="edit-book-id" />
+      <input type="text" id="edit-book-title" />
+      <input type="text" id="edit-book-author" />
       <select id="edit-book-genre"></select>
       <input type="submit" value="Save" />
-      <a aria-label="Close">&#10006;</a>
+      <a onclick="closeBookEdit()" aria-label="Close">&#10006;</a>
     </form>
 
     <p id="counter"></p>

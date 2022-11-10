@@ -36,6 +36,50 @@ const addBook = () => __awaiter(void 0, void 0, void 0, function* () {
     });
     getBooks();
 });
+const openBookEdit = (id) => {
+    const book = books.find((book) => book.id === id);
+    if (!book)
+        return console.error("Couldn't find that book");
+    const titleEditInput = document.getElementById("edit-book-title");
+    titleEditInput.value = book.title;
+    const authorEditInput = document.getElementById("edit-book-author");
+    authorEditInput.value = book.author;
+    const genreEditSelect = document.getElementById("edit-book-genre");
+    fillGenreSelect(genreEditSelect);
+    genreEditSelect.value = `${book.genreID}`;
+    const idEditInput = document.getElementById("edit-book-id");
+    idEditInput.value = `${book.id}`;
+    const bookEditForm = document.getElementById("bookEditForm");
+    bookEditForm.style.display = "block";
+    bookEditForm.addEventListener("submit", (e) => updateBook(e));
+};
+const updateBook = (e) => __awaiter(void 0, void 0, void 0, function* () {
+    e.preventDefault();
+    const titleEdit = document.getElementById("edit-book-title");
+    const authorEdit = document.getElementById("edit-book-author");
+    const genreEdit = document.getElementById("edit-book-genre");
+    const idEdit = document.getElementById("edit-book-id");
+    const book = {
+        title: titleEdit.value,
+        author: authorEdit.value,
+        genreID: genreEdit.value,
+    };
+    yield fetch(`${bookUri}/${idEdit.value}`, {
+        method: "PUT",
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(book),
+    });
+    closeBookEdit();
+    getBooks();
+});
+const closeBookEdit = () => {
+    const bookEditForm = document.getElementById("bookEditForm");
+    bookEditForm.style.display = "none";
+    bookEditForm.removeEventListener("submit", (e) => updateBook(e));
+};
 const deleteBook = (id) => __awaiter(void 0, void 0, void 0, function* () {
     yield fetch(`${bookUri}/${id}`, { method: "DELETE" });
     refresh();
@@ -56,7 +100,7 @@ const displayBooks = () => {
         genreCell.innerText = (genre === null || genre === void 0 ? void 0 : genre.name) || "Not Found";
         const editButton = document.createElement("button");
         editButton.innerText = "Edit";
-        editButton.onclick = () => console.log("edit genre " + book.id);
+        editButton.onclick = () => openBookEdit(book.id);
         const editCell = row.insertCell();
         editCell.append(editButton);
         const deleteButton = document.createElement("button");
