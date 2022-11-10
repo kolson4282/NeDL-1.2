@@ -1,13 +1,15 @@
 import express from "express";
+import path from "path";
 import bookRouter from "./bookRoutes";
 import genreRouter from "./genreRoutes";
 const app = express();
 
 app.use(express.json());
+app.use(express.static("src/public"));
 
-app.get("/", (req, res) => {
-  res.redirect("/api");
-});
+// app.get("/", (req, res) => {
+//   res.sendFile(path.join(__dirname, "../public/index.html"));
+// });
 
 app.get("/api", (req, res) => {
   res.send("This is my book API");
