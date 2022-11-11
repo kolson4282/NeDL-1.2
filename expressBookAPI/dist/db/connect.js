@@ -39,6 +39,29 @@ class BookDatabase {
             return id;
         });
     }
+    getNextGenreID() {
+        return __awaiter(this, void 0, void 0, function* () {
+            let id = 0;
+            try {
+                const db = yield this.getDB();
+                const col = db.collection("Counter");
+                const counter = yield col.findOne();
+                if (counter) {
+                    id = counter.genreID;
+                    counter.genreID++;
+                    yield col.findOneAndReplace({}, counter);
+                }
+            }
+            catch (error) {
+                if (error instanceof Error)
+                    throw error;
+            }
+            finally {
+                yield this.closeClient();
+            }
+            return id;
+        });
+    }
     addBook(book) {
         return __awaiter(this, void 0, void 0, function* () {
             book.id = yield this.getNextBookID();
@@ -84,6 +107,62 @@ class BookDatabase {
             try {
                 const db = yield this.getDB();
                 const col = db.collection("books");
+                yield action(col);
+            }
+            catch (error) {
+                if (error instanceof Error)
+                    throw error;
+            }
+            finally {
+                yield this.closeClient();
+            }
+        });
+    }
+    addGenre(genre) {
+        return __awaiter(this, void 0, void 0, function* () {
+            genre.id = yield this.getNextGenreID();
+            yield this.performGenreAction((col) => __awaiter(this, void 0, void 0, function* () {
+                yield col.insertOne(genre);
+            }));
+        });
+    }
+    getGenres() {
+        return __awaiter(this, void 0, void 0, function* () {
+            let genres = [];
+            yield this.performGenreAction((col) => __awaiter(this, void 0, void 0, function* () {
+                genres = (yield col.find({}).toArray());
+            }));
+            return genres;
+        });
+    }
+    getGenre(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let genre;
+            yield this.performGenreAction((col) => __awaiter(this, void 0, void 0, function* () {
+                genre = (yield col.findOne({ id: id }));
+            }));
+            return genre;
+        });
+    }
+    updateGenre(genre) {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield this.performGenreAction((col) => __awaiter(this, void 0, void 0, function* () {
+                yield col.findOneAndReplace({ id: genre.id }, genre);
+            }));
+        });
+    }
+    deleteGenre(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield this.performGenreAction((col) => __awaiter(this, void 0, void 0, function* () {
+                yield col.findOneAndDelete({ id: id });
+            }));
+        });
+    }
+    performGenreAction(action) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const db = yield this.getDB();
+                const col = db.collection("genres");
                 yield action(col);
             }
             catch (error) {

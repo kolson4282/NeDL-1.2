@@ -2,7 +2,7 @@ import * as dotenv from "dotenv";
 import express from "express";
 import getBookRouter from "./bookRoutes";
 import BookDatabase from "./db/connect";
-import genreRouter from "./genreRoutes";
+import getGenreRouter from "./genreRoutes";
 dotenv.config();
 
 const app = express();
@@ -21,7 +21,7 @@ app.get("/api", (req, res) => {
 });
 
 app.use("/api/books", getBookRouter(database));
-app.use("/api/genres", genreRouter);
+app.use("/api/genres", getGenreRouter(database));
 
 app.listen(3000, () => {
   console.log("Listening on port 3000");

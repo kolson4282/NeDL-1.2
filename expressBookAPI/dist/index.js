@@ -43,7 +43,7 @@ app.get("/api", (req, res) => {
     res.send("This is my book API");
 });
 app.use("/api/books", (0, bookRoutes_1.default)(database));
-app.use("/api/genres", genreRoutes_1.default);
+app.use("/api/genres", (0, genreRoutes_1.default)(database));
 app.listen(3000, () => {
     console.log("Listening on port 3000");
 });

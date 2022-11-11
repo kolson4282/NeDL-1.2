@@ -34,7 +34,25 @@ export default class BookDatabase {
     }
     return id;
   }
-
+  async getNextGenreID() {
+    let id = 0;
+    try {
+      const db = await this.getDB();
+      const col = db.collection<Counter>("Counter");
+      const counter = await col.findOne();
+      if (counter) {
+        id = counter.genreID;
+        counter.genreID++;
+        await col.findOneAndReplace({}, counter);
+      }
+    } catch (error) {
+      if (error instanceof Error) throw error;
+    } finally {
+      await this.closeClient();
+    }
+    return id;
+  }
+  //book crud
   async addBook(book: Book) {
     book.id = await this.getNextBookID();
     await this.performBookAction(async (col) => {
@@ -82,6 +100,54 @@ export default class BookDatabase {
     }
   }
 
+  //genreCrud
+  async addGenre(genre: Genre) {
+    genre.id = await this.getNextGenreID();
+    await this.performGenreAction(async (col) => {
+      await col.insertOne(genre);
+    });
+  }
+
+  async getGenres() {
+    let genres: Genre[] = [];
+    await this.performGenreAction(async (col) => {
+      genres = (await col.find({}).toArray()) as Genre[];
+    });
+    return genres;
+  }
+
+  async getGenre(id: number) {
+    let genre: Genre | undefined;
+    await this.performGenreAction(async (col) => {
+      genre = (await col.findOne({ id: id })) as Genre;
+    });
+    return genre;
+  }
+
+  async updateGenre(genre: Genre) {
+    await this.performGenreAction(async (col) => {
+      await col.findOneAndReplace({ id: genre.id }, genre);
+    });
+  }
+
+  async deleteGenre(id: number) {
+    await this.performGenreAction(async (col) => {
+      await col.findOneAndDelete({ id: id });
+    });
+  }
+
+  async performGenreAction(action: (col: Collection<Genre>) => Promise<void>) {
+    try {
+      const db = await this.getDB();
+      const col = db.collection<Genre>("genres");
+      await action(col);
+    } catch (error) {
+      if (error instanceof Error) throw error;
+    } finally {
+      await this.closeClient();
+    }
+  }
+
   async getDB() {
     await this.client.connect();
     return this.client.db(this.dbName);
@@ -94,7 +160,7 @@ export default class BookDatabase {
 
 // Replace the following with your Atlas connection string
 // const url =
-//   "mongodb+srv://katro:MongoTests@cluster0.b3np6jb.mongodb.net/?retryWrites=true&w=majority";
+//   "";
 // const dbName = "books";
 
 // const bookDB = new BookDatabase(dbName, url);
@@ -110,7 +176,9 @@ export default class BookDatabase {
 //   // await bookDB.addBook(book);
 //   // await bookDB.getBooks().then((books) => console.log(books));
 //   // await bookDB.getBook(1).then((book) => console.log(book));
-//   await bookDB.getNextBookID();
+//   // await bookDB.getNextBookID();
+//   const genres = await bookDB.getGenres();
+//   console.log(genres);
 // }
 
 // run();

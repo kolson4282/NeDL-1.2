@@ -14,22 +14,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const joi_1 = __importDefault(require("joi"));
 const express_1 = __importDefault(require("express"));
-const genreRoutes_1 = require("./genreRoutes");
-const books = [
-    {
-        id: 1,
-        title: "Hitchikers Guide to the Galaxy",
-        author: "Douglas Adams",
-        genreID: 1,
-    },
-    {
-        id: 2,
-        title: "The Way of Kings",
-        author: "Brandon Sanderson",
-        genreID: 2,
-    },
-];
-let bookID = 3;
 const getBookRouter = (database) => {
     const bookRouter = express_1.default.Router();
     bookRouter.get("/", (req, res) => {
@@ -43,17 +27,14 @@ const getBookRouter = (database) => {
             return res.status(404).send("Could not find that book");
         res.send(book);
     }));
-    bookRouter.post("/", (req, res) => {
+    bookRouter.post("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const body = req.body;
         const { error } = validateBook(body);
         if (error)
             return res.status(400).send(error.details[0].message);
         const book = Object.assign({}, body);
-        if (!(0, genreRoutes_1.findGenre)(book.genreID))
-            return res.status(404).send("Could not find a genre with that ID");
-        bookID++;
         database.addBook(book).then((data) => res.send(data));
-    });
+    }));
     bookRouter.put("/:id", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const book = yield findBook(req.params.id);
         if (!book)

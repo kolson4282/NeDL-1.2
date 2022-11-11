@@ -1,6 +1,5 @@
 import Joi from "joi";
 import express from "express";
-import { findGenre } from "./genreRoutes";
 import BookDatabase from "./db/connect";
 
 type Book = {
@@ -9,23 +8,6 @@ type Book = {
   author: string;
   genreID: number;
 };
-
-const books: Book[] = [
-  {
-    id: 1,
-    title: "Hitchikers Guide to the Galaxy",
-    author: "Douglas Adams",
-    genreID: 1,
-  },
-  {
-    id: 2,
-    title: "The Way of Kings",
-    author: "Brandon Sanderson",
-    genreID: 2,
-  },
-];
-
-let bookID = 3;
 
 // endpoint /api/books
 
@@ -44,16 +26,14 @@ const getBookRouter = (database: BookDatabase) => {
     res.send(book);
   });
 
-  bookRouter.post("/", (req, res) => {
+  bookRouter.post("/", async (req, res) => {
     const body = req.body;
     const { error } = validateBook(body);
     if (error) return res.status(400).send(error.details[0].message);
     const book: Book = {
       ...body,
     };
-    if (!findGenre(book.genreID))
-      return res.status(404).send("Could not find a genre with that ID");
-    bookID++;
+
     database.addBook(book).then((data) => res.send(data));
   });
 
