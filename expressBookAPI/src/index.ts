@@ -4,8 +4,8 @@ import BookDatabase from "./db/connect";
 import genreRouter from "./genreRoutes";
 const app = express();
 
-const url =
-  "mongodb+srv://katro:MongoTests@cluster0.b3np6jb.mongodb.net/?retryWrites=true&w=majority";
+const url = "";
+
 const dbName = "books";
 const database = new BookDatabase(dbName, url);
 
