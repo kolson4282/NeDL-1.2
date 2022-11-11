@@ -72,6 +72,13 @@ class BookDatabase {
             }));
         });
     }
+    deleteBook(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield this.performBookAction((col) => __awaiter(this, void 0, void 0, function* () {
+                yield col.findOneAndDelete({ id: id });
+            }));
+        });
+    }
     performBookAction(action) {
         return __awaiter(this, void 0, void 0, function* () {
             try {

@@ -77,8 +77,7 @@ const getBookRouter = (database: BookDatabase) => {
     const book = await findBook(req.params.id);
     if (!book) return res.status(404).send("Could not find that book");
 
-    const index = books.indexOf(book);
-    books.splice(index, 1);
+    await database.deleteBook(book.id);
     res.send(book);
   });
 

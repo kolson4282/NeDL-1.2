@@ -64,6 +64,12 @@ export default class BookDatabase {
     });
   }
 
+  async deleteBook(id: number) {
+    await this.performBookAction(async (col) => {
+      await col.findOneAndDelete({ id: id });
+    });
+  }
+
   async performBookAction(action: (col: Collection<Book>) => Promise<void>) {
     try {
       const db = await this.getDB();
