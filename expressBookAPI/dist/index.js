@@ -8,7 +8,7 @@ const bookRoutes_1 = __importDefault(require("./bookRoutes"));
 const connect_1 = __importDefault(require("./db/connect"));
 const genreRoutes_1 = __importDefault(require("./genreRoutes"));
 const app = (0, express_1.default)();
-const url = "mongodb+srv://katro:MongoTests@cluster0.b3np6jb.mongodb.net/?retryWrites=true&w=majority";
+const url = "";
 const dbName = "books";
 const database = new connect_1.default(dbName, url);
 app.use(express_1.default.json());
