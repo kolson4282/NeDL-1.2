@@ -1,10 +1,13 @@
+import * as dotenv from "dotenv";
 import express from "express";
 import getBookRouter from "./bookRoutes";
 import BookDatabase from "./db/connect";
 import genreRouter from "./genreRoutes";
+dotenv.config();
+
 const app = express();
 
-const url = "";
+const url = process.env.MONGODB_URL || "";
 
 const dbName = "books";
 const database = new BookDatabase(dbName, url);
