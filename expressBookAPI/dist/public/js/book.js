@@ -52,7 +52,7 @@ const openBookEdit = (id) => {
     idEditInput.value = `${book.id}`;
     const bookEditForm = document.getElementById("bookEditForm");
     bookEditForm.style.display = "block";
-    bookEditForm.addEventListener("submit", (e) => updateBook(e));
+    bookEditForm.addEventListener("submit", updateBook);
 };
 const updateBook = (e) => __awaiter(void 0, void 0, void 0, function* () {
     e.preventDefault();
@@ -79,7 +79,7 @@ const updateBook = (e) => __awaiter(void 0, void 0, void 0, function* () {
 const closeBookEdit = () => {
     const bookEditForm = document.getElementById("bookEditForm");
     bookEditForm.style.display = "none";
-    bookEditForm.removeEventListener("submit", (e) => updateBook(e));
+    bookEditForm.removeEventListener("submit", updateBook);
 };
 const deleteBook = (id) => __awaiter(void 0, void 0, void 0, function* () {
     yield fetch(`${bookUri}/${id}`, { method: "DELETE" });

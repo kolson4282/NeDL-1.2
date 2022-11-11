@@ -75,7 +75,7 @@ const openBookEdit = (id: number) => {
     "bookEditForm"
   ) as HTMLFormElement;
   bookEditForm.style.display = "block";
-  bookEditForm.addEventListener("submit", (e) => updateBook(e));
+  bookEditForm.addEventListener("submit", updateBook);
 };
 
 const updateBook = async (e: Event) => {
@@ -96,7 +96,6 @@ const updateBook = async (e: Event) => {
     author: authorEdit.value,
     genreID: genreEdit.value,
   };
-
   await fetch(`${bookUri}/${idEdit.value}`, {
     method: "PUT",
     headers: {
@@ -114,7 +113,7 @@ const closeBookEdit = () => {
     "bookEditForm"
   ) as HTMLFormElement;
   bookEditForm.style.display = "none";
-  bookEditForm.removeEventListener("submit", (e) => updateBook(e));
+  bookEditForm.removeEventListener("submit", updateBook);
 };
 
 const deleteBook = async (id: number) => {

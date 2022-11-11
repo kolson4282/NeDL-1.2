@@ -52,7 +52,7 @@ const openGenreEdit = (id: number) => {
     "genreEditForm"
   ) as HTMLFormElement;
   genreEditForm.style.display = "block";
-  genreEditForm.addEventListener("submit", (e) => updateGenre(e));
+  genreEditForm.addEventListener("submit", updateGenre);
 };
 
 const updateGenre = async (e: Event) => {
@@ -82,7 +82,7 @@ const closeGenreEdit = () => {
     "genreEditForm"
   ) as HTMLFormElement;
   genreEditForm.style.display = "none";
-  genreEditForm.removeEventListener("submit", (e) => updateGenre(e));
+  genreEditForm.removeEventListener("submit", updateGenre);
 };
 
 const deleteGenre = async (id: number) => {

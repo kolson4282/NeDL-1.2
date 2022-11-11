@@ -49,7 +49,6 @@ const getBookRouter = (database: BookDatabase) => {
     const { error } = validateBook(body);
     if (error) return res.status(400).send(error.details[0].message);
     const book: Book = {
-      id: bookID,
       ...body,
     };
     if (!findGenre(book.genreID))
@@ -65,12 +64,13 @@ const getBookRouter = (database: BookDatabase) => {
     const body = req.body;
     const { error } = validateBook(body);
     if (error) return res.status(400).send(error.details[0].message);
-
-    book.title = body.title;
-    book.author = body.author;
-    book.genreID = body.genreID;
-
-    res.send(book);
+    const updatedBook: Book = {
+      id: book.id,
+      title: body.title,
+      author: body.author,
+      genreID: body.genreID,
+    };
+    database.updateBook(updatedBook).then(() => res.send(updatedBook));
   });
 
   bookRouter.delete("/:id", async (req, res) => {

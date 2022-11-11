@@ -41,7 +41,7 @@ const openGenreEdit = (id) => {
     genreEditInput.value = `${genre.id}`;
     const genreEditForm = document.getElementById("genreEditForm");
     genreEditForm.style.display = "block";
-    genreEditForm.addEventListener("submit", (e) => updateGenre(e));
+    genreEditForm.addEventListener("submit", updateGenre);
 };
 const updateGenre = (e) => __awaiter(void 0, void 0, void 0, function* () {
     e.preventDefault();
@@ -64,7 +64,7 @@ const updateGenre = (e) => __awaiter(void 0, void 0, void 0, function* () {
 const closeGenreEdit = () => {
     const genreEditForm = document.getElementById("genreEditForm");
     genreEditForm.style.display = "none";
-    genreEditForm.removeEventListener("submit", (e) => updateGenre(e));
+    genreEditForm.removeEventListener("submit", updateGenre);
 };
 const deleteGenre = (id) => __awaiter(void 0, void 0, void 0, function* () {
     yield fetch(`${genreUri}/${id}`, { method: "DELETE" });

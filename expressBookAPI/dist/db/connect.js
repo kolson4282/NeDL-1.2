@@ -65,6 +65,13 @@ class BookDatabase {
             return book;
         });
     }
+    updateBook(book) {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield this.performBookAction((col) => __awaiter(this, void 0, void 0, function* () {
+                yield col.findOneAndReplace({ id: book.id }, book);
+            }));
+        });
+    }
     performBookAction(action) {
         return __awaiter(this, void 0, void 0, function* () {
             try {

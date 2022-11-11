@@ -48,7 +48,7 @@ const getBookRouter = (database) => {
         const { error } = validateBook(body);
         if (error)
             return res.status(400).send(error.details[0].message);
-        const book = Object.assign({ id: bookID }, body);
+        const book = Object.assign({}, body);
         if (!(0, genreRoutes_1.findGenre)(book.genreID))
             return res.status(404).send("Could not find a genre with that ID");
         bookID++;
@@ -62,10 +62,13 @@ const getBookRouter = (database) => {
         const { error } = validateBook(body);
         if (error)
             return res.status(400).send(error.details[0].message);
-        book.title = body.title;
-        book.author = body.author;
-        book.genreID = body.genreID;
-        res.send(book);
+        const updatedBook = {
+            id: book.id,
+            title: body.title,
+            author: body.author,
+            genreID: body.genreID,
+        };
+        database.updateBook(updatedBook).then(() => res.send(updatedBook));
     }));
     bookRouter.delete("/:id", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const book = yield findBook(req.params.id);

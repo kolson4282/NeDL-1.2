@@ -58,6 +58,12 @@ export default class BookDatabase {
     return book;
   }
 
+  async updateBook(book: Book) {
+    await this.performBookAction(async (col) => {
+      await col.findOneAndReplace({ id: book.id }, book);
+    });
+  }
+
   async performBookAction(action: (col: Collection<Book>) => Promise<void>) {
     try {
       const db = await this.getDB();
