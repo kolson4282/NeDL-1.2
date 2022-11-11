@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Book CRUD</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <h1>Book CRUD</h1>
+    <h3>Add</h3>
+    <form id="bookAddForm">
+      <input type="text" id="add-book-title" placeholder="Title" />
+      <input type="text" id="add-book-author" placeholder="Author" />
+      <select id="add-book-genre"></select>
+      <input type="submit" value="Add" />
+    </form>
+
+    <form id="bookEditForm" class="editForm">
+      <h3>Edit</h3>
+      <input type="hidden" disabled id="edit-book-id" />
+      <input type="text" id="edit-book-title" />
+      <input type="text" id="edit-book-author" />
+      <select id="edit-book-genre"></select>
+      <input type="submit" value="Save" />
+      <a onclick="closeBookEdit()" aria-label="Close">&#10006;</a>
+    </form>
+
+    <p id="counter"></p>
+
+    <table>
+      <tr>
+        <th>Title</th>
+        <th>Author</th>
+        <th>Genre</th>
+        <th></th>
+        <th></th>
+      </tr>
+      <tbody id="books"></tbody>
+    </table>
+
+    <h1>Genre CRUD</h1>
+    <h3>Add</h3>
+    <form id="genreAddForm">
+      <input type="text" id="add-genre-name" placeholder="Title" />
+      <input type="submit" value="Add" />
+    </form>
+
+    <form id="genreEditForm" class="editForm">
+      <h3>Edit</h3>
+      <input type="hidden" disabled id="edit-genre-id" />
+      <input type="text" id="edit-genre-name" />
+      <input type="submit" value="Save" />
+      <a onClick="closeGenreEdit()" aria-label="Close">&#10006;</a>
+    </form>
+
+    <p id="genre-counter"></p>
+
+    <table>
+      <tr>
+        <th>Name</th>
+        <th></th>
+      </tr>
+      <tbody id="genres"></tbody>
+    </table>
+    <script src="js/genre.js"></script>
+    <script src="js/book.js"></script>
+    <script src="js/script.js"></script>
+  </body>
+</html>
