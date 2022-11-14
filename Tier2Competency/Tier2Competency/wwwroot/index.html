@@ -1,0 +1,123 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>BoardGame List</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+</head>
+<body>
+
+
+    <div class="container">
+        <div class="row pt-5">
+            <h1 class="col">Board Game List</h1>
+
+        </div>
+        <div class="row justify-content-end">
+            <button type="button" class="btn btn-primary col-2""  id="openNewGameModal">
+                Add New Game
+            </button>
+        </div>
+
+        <table class="table table-striped align-middle">
+            <thead>
+                <tr>
+                    <th>Played?</th>
+                    <th>Title</th>
+                    <th>Number of players</th>
+                    <th>Link to Directions</th>
+                    <th>Times Played</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="boardGameTableBody">
+            </tbody>
+        </table>
+    </div>
+
+    <!--New Game Modal -->
+    <div class="modal" id="newGameModal"  tabindex="-1" aria-labelledby="newGameModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="newGameModalLabel">Add New Game</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="newGameForm">
+                    <form>
+                        <div class="mb-3">
+                            <label for="title" class="form-label">Title</label>
+                            <input type="text" class="form-control" id="title" />
+                        </div>
+                        <div class=" mb-3">
+                            <label for="directions" class="form-label">Direction Link</label>
+                            <input type="text" class="form-control" id="directions" />
+                        </div>
+                        <div class=" mb-3">
+                            <label for="players" class="form-label">Number of Players</label>
+                            <input type="number" class="form-control" id="players" min="0" />
+                        </div>
+                        <div class=" mb-3">
+                            <label for="playedTimes" class="form-label">Number of Times Played</label>
+                            <input  value="0" min ="0" type="number" class="form-control" id="playedTimes" min="0" />
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" id="save" class="btn btn-primary">Add New</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Game Modal -->
+    <div class="modal fade" id="editGameModal" tabindex="-1" aria-labelledby="editGameModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="editGameModalLabel">Add New Game</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="editGameForm">
+                    <input type="number" id="editID" style="display: none;"/>
+                    <div class="mb-3">
+                        <label for="editTitle" class="form-label">Title</label>
+                        <input type="text" class="form-control" id="editTitle" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="editDirections" class="form-label">Direction Link</label>
+                        <input type="text" class="form-control" id="editDirections" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="editPlayers" class="form-label">Number of Players</label>
+                        <input type="number" class="form-control" id="editPlayers" min="0" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="editPlayedTimes" class="form-label">Played Times</label>
+                        <input type="number" class="form-control" id="editPlayedTimes" min="0" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" id="update" class="btn btn-primary">Update Game</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+
+    <script type="importmap">
+        {
+          "imports": {
+            "@popperjs/core": "https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js",
+            "bootstrap": "https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.esm.min.js"
+          }
+        }
+    </script>
+    <script src="src/script.js" type="module"></script>
+</body>
+</html>

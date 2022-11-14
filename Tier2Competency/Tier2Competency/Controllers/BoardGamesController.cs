@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Tier2Competency.Models;
 
@@ -51,6 +46,15 @@ namespace Tier2Competency.Controllers
                 return BadRequest();
             }
 
+            if (boardGame.PlayedTimes > 0)
+            {
+                boardGame.Played = true;
+            }
+            else
+            {
+                boardGame.Played = false;
+            }
+
             _context.Entry(boardGame).State = EntityState.Modified;
 
             try
@@ -77,6 +81,15 @@ namespace Tier2Competency.Controllers
         [HttpPost]
         public async Task<ActionResult<BoardGame>> PostBoardGame(BoardGame boardGame)
         {
+            if (boardGame.PlayedTimes > 0)
+            {
+                boardGame.Played = true;
+            }
+            else
+            {
+                boardGame.Played = false;
+            }
+
             _context.BoardGames.Add(boardGame);
             await _context.SaveChangesAsync();
 
