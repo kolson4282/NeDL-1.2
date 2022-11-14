@@ -2,9 +2,6 @@
 
 const boardGameURI = 'api/boardgames'
 
-//Constant Elements
-const boardGameTableBody = document.getElementById('boardGameTableBody')
-
 /*  Get Board Games  */
 
 const getAllBoardGames = async () => {
@@ -18,6 +15,8 @@ const getAllBoardGames = async () => {
 //button for use in adding rows.
 const button = document.createElement('button');
 button.classList.add("btn")
+//table body to display results in
+const boardGameTableBody = document.getElementById('boardGameTableBody')
 
 const displayGames = (boardGames) => {
     boardGameTableBody.innerHTML = "";
