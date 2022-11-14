@@ -92,6 +92,7 @@ const hideNewGameModal = () => {
 }
 
 const showNewGameModal = () => {
+    document.getElementById('newGameAlert').innerHTML = ""
     newGameModal.show();
 }
 
@@ -104,11 +105,15 @@ const saveGame = async () => {
     const game = {
         title: titleInput.value,
         directionsLink: directionsInput.value,
-        numberOfPlayers: playersInput.value,
-        playedTimes: playedTimesInput.value,
+        numberOfPlayers: playersInput.value || 0,
+        playedTimes: playedTimesInput.value || 0,
     }
+    
     try {
-        await fetch(boardGameURI, {
+        if (game.title == "" || game.directionsLink == "") {
+            throw new Error("Could not add the game. Please update the form. ")
+        }
+        const res = await fetch(boardGameURI, {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -116,6 +121,10 @@ const saveGame = async () => {
             },
             body: JSON.stringify(game)
         })
+        const json = await res.json();
+        if (json.status >= 400 && json.status <= 500) {
+            throw json
+        }
         getAllBoardGames();
         titleInput.value = "";
         directionsInput.value = "";
@@ -123,6 +132,8 @@ const saveGame = async () => {
         playedTimesInput.value = "0"
         hideNewGameModal();
     } catch (err) {
+        const newGameAlert = document.getElementById('newGameAlert');
+        showAlert(newGameAlert, "Could not add game")
         console.error("An error occured: ", err)
     }
 }
@@ -135,6 +146,7 @@ const hideEditGameModal = () => {
 }
 
 const showEditGameModal = (game) => {
+    document.getElementById('editGameAlert').innerHTML = ""
 
     document.getElementById('editID').value = game.id;
     document.getElementById('editTitle').value = game.title;
@@ -156,7 +168,10 @@ const updateGame = async () => {
         playedTimes: parseInt(document.getElementById("editPlayedTimes").value),
     }
     try {
-        await fetch(`${boardGameURI}/${id}`, {
+        if (game.title == "" || game.directionsLink == "") {
+            throw new Error("Could not update the game. ")
+        }
+       const res = await fetch(`${boardGameURI}/${id}`, {
             method: 'PUT',
             headers: {
                 'Accept': 'application/json',
@@ -164,9 +179,14 @@ const updateGame = async () => {
             },
             body: JSON.stringify(game)
         })
+        if (res.status >= 400) {
+            throw res
+        }
         getAllBoardGames();
         hideEditGameModal();
     } catch (err) {
+        const editGameAlert = document.getElementById('editGameAlert');
+        showAlert(editGameAlert, "Could not update game")
         console.error("Unable to update item: ", err)
     }
 
@@ -203,6 +223,20 @@ const deleteGame = async (id) => {
     } catch (err) {
         console.error("An error occured", err)
     }
+}
+
+/*  Alerts  */
+const showAlert = (element, message, type = "danger") => {
+    element.innerHTML = ""
+    const wrapper = document.createElement('div')
+    wrapper.innerHTML = [
+        `<div class="alert alert-${type} alert-dismissible" role="alert">`,
+        `   <div>${message}</div>`,
+        '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
+        '</div>'
+    ].join('')
+
+    element.append(wrapper)
 }
 
 /*  Event listeners and start up stuff  */

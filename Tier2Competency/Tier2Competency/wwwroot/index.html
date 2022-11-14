@@ -43,10 +43,11 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="newGameModalLabel">Add New Game</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                     <h1 class="modal-title fs-5" id="newGameModalLabel">Add New Game</h1>
+                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body" id="newGameForm">
+                    <div id="newGameAlert" ></div>
                     <form>
                         <div class="mb-3">
                             <label for="title" class="form-label">Title</label>
@@ -58,13 +59,14 @@
                         </div>
                         <div class=" mb-3">
                             <label for="players" class="form-label">Number of Players</label>
-                            <input type="number" class="form-control" id="players" min="0" />
+                            <input type="number" class="form-control" id="players" min="0" value="0" />
                         </div>
                         <div class=" mb-3">
                             <label for="playedTimes" class="form-label">Number of Times Played</label>
-                            <input  value="0" min ="0" type="number" class="form-control" id="playedTimes" min="0" />
+                            <input value="0" min="0" type="number" class="form-control" id="playedTimes" min="0" />
                         </div>
                     </form>
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -83,7 +85,8 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body" id="editGameForm">
-                    <input type="number" id="editID" style="display: none;"/>
+                    <div id="editGameAlert"></div>
+                    <input type="number" id="editID" style="display: none;" />
                     <div class="mb-3">
                         <label for="editTitle" class="form-label">Title</label>
                         <input type="text" class="form-control" id="editTitle" />
