@@ -12,9 +12,11 @@ const getAllBoardGames = async () => {
 
 
 /*  Display Board Games  */
+
 //button for use in adding rows.
 const button = document.createElement('button');
 button.classList.add("btn")
+
 //table body to display results in
 const boardGameTableBody = document.getElementById('boardGameTableBody')
 
@@ -86,6 +88,7 @@ const displayGames = (boardGames) => {
 /*  Save New Game  */
 
 const newGameModal = new bootstrap.Modal("#newGameModal");
+
 const hideNewGameModal = () => {
     newGameModal.hide();
 }
@@ -140,6 +143,7 @@ const saveGame = async () => {
 /*  Edit Game  */
 
 const editGameModal = new bootstrap.Modal("#editGameModal");
+
 const hideEditGameModal = () => {
     editGameModal.hide();
 }
@@ -209,6 +213,7 @@ const addOneToPlayed = async (game) => {
 }
 
 /*  Delete Game  */
+
 const deleteGame = async (id) => {
     try {
         await fetch(`${boardGameURI}/${id}`, {
@@ -225,6 +230,7 @@ const deleteGame = async (id) => {
 }
 
 /*  Alerts  */
+
 const showAlert = (element, message, type = "danger") => {
     element.innerHTML = ""
     const wrapper = document.createElement('div')
